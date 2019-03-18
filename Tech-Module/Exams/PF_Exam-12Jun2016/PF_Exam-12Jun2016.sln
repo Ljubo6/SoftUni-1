@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01.Numbers", "01.Numbers\01.Numbers.csproj", "{F33DABE2-DFC5-4F2D-BFA3-C10917CD518F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02.Coffee_Orders", "02.Coffee_Orders\02.Coffee_Orders.csproj", "{F41D26CE-5725-4521-BD82-C7D159AC46BC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F33DABE2-DFC5-4F2D-BFA3-C10917CD518F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F33DABE2-DFC5-4F2D-BFA3-C10917CD518F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F33DABE2-DFC5-4F2D-BFA3-C10917CD518F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F33DABE2-DFC5-4F2D-BFA3-C10917CD518F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F41D26CE-5725-4521-BD82-C7D159AC46BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F41D26CE-5725-4521-BD82-C7D159AC46BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F41D26CE-5725-4521-BD82-C7D159AC46BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F41D26CE-5725-4521-BD82-C7D159AC46BC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0141F494-8A76-411D-A272-AFE2FB7C8EF4}
+	EndGlobalSection
+EndGlobal

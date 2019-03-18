@@ -1,0 +1,34 @@
+﻿@model List<Calculator>
+@{
+    ViewData["Title"] = "Index";
+
+    <h1>Past Calculations</h1>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <font color="A2A2A2"><i>@item.TimeOfCalculation</i></font>
+            </td>
+            <td>
+                &emsp;
+            </td>
+            <td>
+                @item.LeftOperand
+            </td>
+            <td>
+                @item.Operator
+            </td>
+            <td>
+                @item.RightOperand
+            </td>
+            <td>
+                =
+            </td>
+            <td>
+                @item.Result
+            </td>
+        </tr>
+        <br />
+    }
+}

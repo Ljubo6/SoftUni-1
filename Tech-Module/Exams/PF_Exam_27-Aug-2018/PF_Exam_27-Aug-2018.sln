@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02.Grains_of_Sands", "PF_Exam_27-Aug-2018\02.Grains_of_Sands.csproj", "{00923EE8-3A04-4769-B105-5909F99D9492}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01.Hogswatch", "01.Hogswatch\01.Hogswatch.csproj", "{B564C6FF-DB40-49EE-AFAD-F42809EACC9D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{00923EE8-3A04-4769-B105-5909F99D9492}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00923EE8-3A04-4769-B105-5909F99D9492}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00923EE8-3A04-4769-B105-5909F99D9492}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00923EE8-3A04-4769-B105-5909F99D9492}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B564C6FF-DB40-49EE-AFAD-F42809EACC9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B564C6FF-DB40-49EE-AFAD-F42809EACC9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B564C6FF-DB40-49EE-AFAD-F42809EACC9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B564C6FF-DB40-49EE-AFAD-F42809EACC9D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2E9C87AF-58AC-414D-992B-D0BB53EFA85D}
+	EndGlobalSection
+EndGlobal
