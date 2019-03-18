@@ -1,0 +1,175 @@
+-------- PROBLEM 1 ---------
+CREATE DATABASE TableRelations
+USE TableRelations
+
+CREATE TABLE Passports(
+PassportID INT NOT NULL,
+PassportNumber NVARCHAR(30) NOT NULL
+CONSTRAINT PK_PassportID PRIMARY KEY (PassportID)
+)
+CREATE TABLE Persons(
+PersonID INT NOT NULL,
+FirstName  NVARCHAR(50) NOT NULL,
+Salary MONEY, 
+PassportID INT NOT NULL
+
+CONSTRAINT PK_PersonalID PRIMARY KEY (PersonID),
+CONSTRAINT FK_PassportID FOREIGN KEY (PassportID) REFERENCES Passports(PassportID)
+)
+-- INSERT STATEMENTS ARE NOT REQUIRED IN JUDGE
+INSERT INTO Persons VALUES
+(1, 'Roberto', 43300.00, 102),
+(2, 'Tom', 56100.00, 103),
+(3, 'Yana', 60200.00, 101)
+INSERT INTO Passports VALUES
+(101, 'N34FG21B'),
+(102, 'K65LO4R7'),
+(103, 'ZE657QP2')
+
+-------- PROBLEM 2 ---------
+CREATE TABLE Manufacturers(
+ManufacturerID INT NOT NULL,
+[Name] VARCHAR(20) NOT NULL,
+EstablishedOn DATE NOT NULL
+
+CONSTRAINT PK_ManufacturerID PRIMARY KEY (ManufacturerID),
+)
+CREATE TABLE Models
+(ModelID INT NOT NULL,
+ [Name]    VARCHAR(20) NOT NULL,
+ ManufacturerID INT NOT NULL
+ CONSTRAINT PK_ModelID PRIMARY KEY (ModelID),
+ CONSTRAINT FK_ManufacturerID FOREIGN KEY (ManufacturerID) REFERENCES Manufacturers(ManufacturerID)
+)
+-- INSERT STATEMENTS ARE NOT REQUIRED IN JUDGE
+INSERT INTO Manufacturers VALUES
+(1, 'BMW', '1916-03-07'),
+(2, 'Tesla', '2003-01-01'),
+(3, 'Lada', '1966-05-01')
+INSERT INTO Models VALUES
+(101, 'X1', 1), 
+(102, 'i6', 1), 
+(103, 'Model S', 2),
+(104, 'Model X', 2),
+(105, 'Model 3', 2),
+(106, 'Nova', 3)
+
+-------- PROBLEM 3 ---------
+CREATE TABLE Students(
+StudentID INT NOT NULL,
+[Name] VARCHAR(30) NOT NULL
+CONSTRAINT PK_StudentID PRIMARY KEY(StudentID) 
+)
+CREATE TABLE Exams(
+ExamID INT NOT NULL,
+[Name] VARCHAR(30) NOT NULL
+CONSTRAINT PK_ExamID PRIMARY KEY(ExamID) 
+)
+CREATE TABLE StudentsExams(
+StudentID INT NOT NULL,
+ExamID INT NOT NULL
+CONSTRAINT PK_StudentsExams PRIMARY KEY (StudentID, ExamID),
+CONSTRAINT FK_StudentID FOREIGN KEY (StudentID) REFERENCES Students(StudentID),
+CONSTRAINT FK_ExamID FOREIGN KEY (ExamID) REFERENCES Exams(ExamID)
+)
+-- INSERT STATEMENTS ARE NOT REQUIRED IN JUDGE
+INSERT INTO Students VALUES
+(1, 'Mila'),
+(2, 'Toni'),
+(3, 'Ron')
+INSERT INTO Exams VALUES
+(101, 'SpringMVC'),
+(102, 'Neo4j'),
+(103, 'Oracle 11g')
+INSERT INTO StudentsExams VALUES
+(1, 101),
+(1, 102),
+(2, 101),
+(3, 103),
+(2, 102),
+(2, 103)
+
+-------- PROBLEM 4 ---------
+CREATE TABLE Teachers(
+TeacherID INT NOT NULL,
+[Name] NVARCHAR(30) NOT NULL,
+ManagerID INT NOT NULL
+CONSTRAINT PK_TeacherID PRIMARY KEY (TeacherID),
+CONSTRAINT FK_TeacherManager FOREIGN KEY (ManagerID) REFERENCES Teachers(TeacherID) 
+)
+
+-------- PROBLEM 5 ---------
+CREATE TABLE Cities(
+CityID INT NOT NULL
+CONSTRAINT PK_CityID PRIMARY KEY (CityID))
+CREATE TABLE Customers(
+CustomerID INT NOT NULL,
+[Name] VARCHAR(50) NOT NULL,
+Birthday DATE NOT NULL,
+CityID INT NOT NULL
+CONSTRAINT PK_CustomerID PRIMARY KEY (CustomerID),
+CONSTRAINT FK_CityID FOREIGN KEY (CityID) REFERENCES Cities(CityID))
+CREATE TABLE ItemTypes(
+ItemTypeID INT NOT NULL,
+[Name] VARCHAR(50) NOT NULL
+CONSTRAINT PK_ItemTypeID PRIMARY KEY (ItemTypeID))
+CREATE TABLE Items(
+ItemID INT NOT NULL,
+[Name] VARCHAR(50) NOT NULL,
+ItemTypeID INT NOT NULL,
+CONSTRAINT PK_ItemID PRIMARY KEY (ItemID),
+CONSTRAINT FK_ItemTypeID FOREIGN KEY (ItemTypeID) REFERENCES ItemTypes(ItemTypeID))
+CREATE TABLE Orders(
+OrderID INT NOT NULL,
+CustomerID INT NOT NULL
+CONSTRAINT PK_OrderID PRIMARY KEY (OrderID),
+CONSTRAINT FK_CustomerID FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID))
+CREATE TABLE OrderItems(
+OrderID INT NOT NULL,
+ItemID INT NOT NULL
+CONSTRAINT PK_OrderItem PRIMARY KEY (OrderID, ItemID),
+CONSTRAINT FK_OrderID FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),
+CONSTRAINT FK_ItemID FOREIGN KEY (ItemID) REFERENCES Items(ItemID))
+
+-------- PROBLEM 6 ---------
+CREATE DATABASE University
+USE University
+
+CREATE TABLE Majors(
+MajorID INT NOT NULL,
+[Name] NVARCHAR(50) NOT NULL
+CONSTRAINT PK_MajorID PRIMARY KEY (MajorID))
+CREATE TABLE Subjects(
+SubjectID INT NOT NULL,
+SubjectName NVARCHAR(50) NOT NULL
+CONSTRAINT PK_SubjectID PRIMARY KEY (SubjectID))
+CREATE TABLE Students(
+StudentID INT NOT NULL,
+StudentNumber INT NOT NULL,
+StudentName NVARCHAR(50) NOT NULL,
+MajorID INT NOT NULL
+CONSTRAINT PK_StudentID PRIMARY KEY (StudentID)
+CONSTRAINT FK_MajorID FOREIGN KEY (MajorID) REFERENCES Majors(MajorID))
+CREATE TABLE Payments(
+PaymentID INT NOT NULL,
+PaymentDate DATE NOT NULL,
+PaymentAmount MONEY NOT NULL,
+StudentID INT NOT NULL
+CONSTRAINT PK_PaymentID PRIMARY KEY (PaymentID)
+CONSTRAINT FK_StudentID FOREIGN KEY (StudentID) REFERENCES Students(StudentID))
+CREATE TABLE Agenda(
+StudentID INT NOT NULL,
+SubjectID INT NOT NULL
+CONSTRAINT PK_StudentSubect PRIMARY KEY (StudentID, SubjectID),
+CONSTRAINT FK_AgendaStudentID FOREIGN KEY (StudentID) REFERENCES Students(StudentID),
+CONSTRAINT FK_AgendaSubjectID FOREIGN KEY (SubjectID) REFERENCES Subjects(SubjectID))
+
+-------- PROBLEM 9 ---------
+USE Geography
+
+SELECT m.MountainRange, p.PeakName, p.Elevation 
+  FROM Mountains AS m
+  JOIN Peaks AS p  
+    ON p.MountainID = m.Id
+ WHERE MountainRange = 'Rila'
+ ORDER BY Elevation DESC 
