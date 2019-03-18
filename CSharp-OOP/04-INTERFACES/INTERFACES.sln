@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P01_02.IPerson", "P01.IPerson\P01_02.IPerson.csproj", "{59389AC3-FF6B-4520-9F8F-161D98BBFDC4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P03.Ferrari", "P03.Ferrari\P03.Ferrari.csproj", "{D4B66256-28F6-4D16-8FAD-8B8FCE3776EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P04.Telephony", "P04.Telephony\P04.Telephony.csproj", "{270E562F-4EF8-4969-9860-CA6640102945}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P05.BorderControl", "P05.BorderControl\P05.BorderControl.csproj", "{4AF9A3E4-9632-4C40-BD67-989C0938C059}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P06.BirthdayCelebrations", "P06.BirthdayCelebrations\P06.BirthdayCelebrations.csproj", "{3539AA2D-8A1A-48F3-ADFB-B3467991C826}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P07.FoodShortage", "P07.FoodShortage\P07.FoodShortage.csproj", "{34EDD61C-48B8-42EC-8B26-0AE05FD00482}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P08.MilitaryElite", "P08.MilitaryElite\P08.MilitaryElite.csproj", "{308C749F-7E33-49CA-A35E-1B736F794D1A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{59389AC3-FF6B-4520-9F8F-161D98BBFDC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59389AC3-FF6B-4520-9F8F-161D98BBFDC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59389AC3-FF6B-4520-9F8F-161D98BBFDC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59389AC3-FF6B-4520-9F8F-161D98BBFDC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4B66256-28F6-4D16-8FAD-8B8FCE3776EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4B66256-28F6-4D16-8FAD-8B8FCE3776EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4B66256-28F6-4D16-8FAD-8B8FCE3776EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4B66256-28F6-4D16-8FAD-8B8FCE3776EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{270E562F-4EF8-4969-9860-CA6640102945}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{270E562F-4EF8-4969-9860-CA6640102945}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{270E562F-4EF8-4969-9860-CA6640102945}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{270E562F-4EF8-4969-9860-CA6640102945}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AF9A3E4-9632-4C40-BD67-989C0938C059}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AF9A3E4-9632-4C40-BD67-989C0938C059}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AF9A3E4-9632-4C40-BD67-989C0938C059}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AF9A3E4-9632-4C40-BD67-989C0938C059}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3539AA2D-8A1A-48F3-ADFB-B3467991C826}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3539AA2D-8A1A-48F3-ADFB-B3467991C826}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3539AA2D-8A1A-48F3-ADFB-B3467991C826}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3539AA2D-8A1A-48F3-ADFB-B3467991C826}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34EDD61C-48B8-42EC-8B26-0AE05FD00482}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34EDD61C-48B8-42EC-8B26-0AE05FD00482}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34EDD61C-48B8-42EC-8B26-0AE05FD00482}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34EDD61C-48B8-42EC-8B26-0AE05FD00482}.Release|Any CPU.Build.0 = Release|Any CPU
+		{308C749F-7E33-49CA-A35E-1B736F794D1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{308C749F-7E33-49CA-A35E-1B736F794D1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{308C749F-7E33-49CA-A35E-1B736F794D1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{308C749F-7E33-49CA-A35E-1B736F794D1A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1194ECFB-F204-4A87-85DA-44B9DC95D2B3}
+	EndGlobalSection
+EndGlobal
