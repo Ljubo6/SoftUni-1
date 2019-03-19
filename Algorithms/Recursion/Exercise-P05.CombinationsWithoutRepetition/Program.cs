@@ -21,7 +21,7 @@ namespace Exercise_P05.CombinationsWithoutRepetition
         {
             if (index == vector.Length)
             {
-                Console.WriteLine(string.Join(' ', vector));
+                Console.WriteLine(string.Join(" ", vector));
                 return;
             }
             else

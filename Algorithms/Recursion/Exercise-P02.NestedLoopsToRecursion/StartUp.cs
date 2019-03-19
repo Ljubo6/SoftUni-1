@@ -15,7 +15,7 @@ namespace Exercise_P02.NestedLoopsToRecursion
         {
             if(index == vector.Length)
             {
-                Console.WriteLine(string.Join(' ', vector));
+                Console.WriteLine(string.Join(" ", vector));
                 return;
             }
 
