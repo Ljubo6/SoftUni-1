@@ -4,7 +4,7 @@ Problems for exercises and homework for the [&quot;C# OOP&quot; course @ SoftUni
 
 You can check your solutions here: [https://judge.softuni.bg/Contests/1502/Interfaces-and-Abstraction-Exercise](https://judge.softuni.bg/Contests/1502/Interfaces-and-Abstraction-Exercise)
 
-##Problem 1.Define an Interface IPerson
+## Problem 1.Define an Interface IPerson
 
 **NOTE** : You need a public **StartUp** class with the namespace **PersonInfo**.
 
@@ -21,7 +21,7 @@ Try to create a new Person like this:
 | --- | --- |
 | Pesho25 | Pesho25 |
 
-##Problem 2.Multiple Implementation
+## Problem 2.Multiple Implementation
 
 **NOTE** : You need a public **StartUp** class with the namespace **PersonInfo**.
 
@@ -38,7 +38,7 @@ Test your class like this:
 | --- | --- |
 | Pesho25910515228715/05/1991 | 910515228715/05/1991 |
 
-##Problem 3.Ferrari
+## Problem 3.Ferrari
 
 Model an application which contains a **class Ferrari** and an **interface**. Your task is simple, you have a **car - Ferrari** , its model is **&quot;**** 488-Spider ****&quot;** and it has a **driver**. Your Ferrari should have functionality to **use brakes** and **push the gas pedal**. When the **brakes** are pushed down **print &quot;**** Brakes! ****&quot;** , and when the **gas pedal** is pushed down - **&quot;Gas!&quot;**. As you may have guessed this functionality is typical for all cars, so you should **implement an interface** to describe it.
 
@@ -65,7 +65,7 @@ The input will always be valid, no need to check it explicitly! The Driver&#39;s
 | George | 488-Spider/Brakes!/Gas!/George |
 | Peter | 488-Spider/Brakes!/Gas!/Peter |
 
-##Problem 4.Telephony
+## Problem 4.Telephony
 
 You have a business - **manufacturing cell phones**. But you have no software developers, so you call some friends of yours and ask them to help you create a cell phone software. They have already agreed and you started working on the project. The project consists of one main **model – a Smartphone**. Each of your smartphones should have functionalities of **calling other phones** and **browsing in the world wide web.**
 
@@ -104,7 +104,7 @@ The input comes from the console. It will hold two lines:
 | --- | --- |
 | 0882134215 0882134333 08992134215 0558123 3333 1http://softuni.bg http://youtube.com http://www.g00gle.com | Calling... 0882134215Calling... 0882134333Calling... 08992134215Calling... 0558123Calling... 3333Calling... 1Browsing: http://softuni.bg!Browsing: http://youtube.com!Invalid URL! |
 
-##Problem 5.Border Control
+## Problem 5.Border Control
 
 It&#39;s the future, you&#39;re the ruler of a totalitarian dystopian society inhabited by **citizens** and **robots** , since you&#39;re afraid of rebellions you decide to implement strict control of who enters your city. Your soldiers check the **Id** s of everyone who enters and leaves.
 
@@ -123,7 +123,7 @@ The input comes from the console. Every commands&#39; parameters before the comm
 | Pesho 22 9010101122MK-13 558833251MK-12 33283122End122 | 901010112233283122  |
 | Toncho 31 7801211340Penka 29 8007181534IV-228 999999Stamat 54 3401018380KKK-666 80808080End340 | 7801211340  |
 
-##Problem 6.Birthday Celebrations
+## Problem 6.Birthday Celebrations
 
 It is a well known fact that people celebrate birthdays, it is also known that some people also celebrate their pets&#39; birthdays. Extend the program from your last task to add **birthdates** to citizens and include a class **Pet** , pets have a **name** and a **birthdate**. Encompass repeated functionality into interfaces and implement them in your classes.
 
@@ -137,7 +137,7 @@ You will receive from the console an unknown amount of lines. Until the command 
 | Citizen Stamat 16 0041018380 01/01/2000Robot MK-10 12345678Robot PP-09 00000001Pet Topcho 24/12/2000Pet Kosmat 12/06/2002 End2000 | 01/01/200024/12/2000 |
 | Robot VV-XYZ 11213141Citizen Penka 35 7903210713 21/03/1979Citizen Kane 40 7409073566 07/09/1974End1975 | \&lt;empty output\&gt; |
 
-##Problem 7.Food Shortage
+## Problem 7.Food Shortage
 
 Your totalitarian dystopian society suffers a shortage of food, so many rebels appear. Extend the code from your previous task with new functionality to solve this task.
 
@@ -156,7 +156,7 @@ The **output** consists of only **one line** on which you should print the **tot
 | 2Pesho 25 8904041303 04/04/1989Stancho 27 WildMonkeysPeshoGoshoPeshoEnd | 20 |
 | 4Stamat 23 TheSwarmToncho 44 7308185527 18/08/1973Joro 31 TerroristsPenka 27 881222212 22/12/1988JirafJo roJirafJoroStamatPenkaEnd | 20 |
 
-##Problem 8.Military Elite
+## Problem 8.Military Elite
 
 Create the following class hierarchy:
 
@@ -225,7 +225,7 @@ Commando 13 Stamat Stamov 13.1 AirforcesPrivate 222 Toncho Tonchev 80.08Lieutena
 | Engineer 7 Pencho Penchev 12.23 Marines Boat 2 Crane 17Commando 19 Penka Ivanova 150.15 Airforces HairyFoot finished Freedom inProgressEnd | Name: Pencho Penchev Id: 7 Salary: 12.23Corps: MarinesRepairs:  Part Name: Boat Hours Worked: 2  Part Name: Crane Hours Worked: 17Name: Penka Ivanova Id: 19 Salary: 150.15Corps: Airforces
 Missions:  Code Name: Freedom State: inProgress |
 
-##Problem 9.\*Collection Hierarchy
+## Problem 9.\*Collection Hierarchy
 
 Create 3 different string collections – **AddCollection** , **AddRemoveCollection** and **MyList**.
 

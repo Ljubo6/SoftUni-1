@@ -4,7 +4,7 @@ This document defines the **exercise assignments** for the [&quot;C# OOP Basics&
 
 Please submit your solutions (source code) of all below described problems in [Judge](https://judge.softuni.bg/Contests/239/Inheritance-Exercise).
 
-##Problem 1.Person
+## Problem 1.Person
 
 You are asked to model an application for storing data about people. You should be able to have a person and a child. The child derives from the person. Your task is to model the application. The only constraints are:
 
@@ -89,7 +89,7 @@ There is **no need** to rewrite the Name and Age properties since **Child** inhe
 | --- |
 | publicoverrideint Age{    get    {        returnbase.Age;    }    set    {        //TODO validate childs age        base.Age = value;    }} |
 
-##Problem 2.Book Shop
+## Problem 2.Book Shop
 
 You are working in a library. You are sick of writing descriptions for books by hand, so you wish to use the computer to speed up the process. The task is simple - your program should have two classes – one for the ordinary books – **Book** , and another for the special ones – **GoldenEditionBook**. So let&#39;s get started! We need two classes:
 
@@ -180,7 +180,7 @@ Back to the **GoldenEditionBook** class, let&#39;s override the Price property a
 | --- |
 | publicoverridedecimal Price{    get    {        returnbase.Price \* 1.3;    }} |
 
-##Problem 3.Mankind
+## Problem 3.Mankind
 
 Your task is to model an application. It is very simple. The mandatory models of our application are 3:   **Human** , **Worker** and **Student**.
 
@@ -237,7 +237,7 @@ Print exactly two digits after every double value&#39;s decimal separator (e.g. 
 | Ivan Ivanov 08Pesho Kirov 1590 10 | Invalid faculty number! |
 | Stefo Mk321 0812111Ivcho Ivancov 1590 10 | First Name: StefoLast Name: Mk321Faculty number: 0812111First Name: IvchoLast Name: IvancovWeek Salary: 1590.00Hours per day: 10.00Salary per hour: 31.80 |
 
-##Problem 4.Online Radio Database
+## Problem 4.Online Radio Database
 
 Create an online radio station database. It should keep information about all of the added songs. On the first line you are going to get the number of songs you are going to try to add. On the next lines you will get the songs to be added in the format **\&lt;artist name\&gt;;\&lt;song name\&gt;;\&lt;minutes:seconds\&gt;**. To be valid, every song should have an artist name, a song name and a length.
 
@@ -282,7 +282,7 @@ If the song is added, print &quot; **Song added.**&quot;. If you **can&#39;t add
 | 3ABBA;Mamma Mia;3:35Nasko Mentata;Shopskata salata;4:123Nasko Mentata;Shopskata salata;4:12 | Song added.Song seconds should be between 0 and 59.Song added.Songs added: 2Playlist length: 0h 7m 47s |
 | 5Nasko Mentata;Shopskata salata;14:59Nasko Mentata;Shopskata salata;14:59Nasko Mentata;Shopskata salata;14:59Nasko Mentata;Shopskata salata;14:59Nasko Mentata;Shopskata salata;0:5 | Song added.Song added.Song added.Song added.Song added.Songs added: 5Playlist length: 1h 0m 1s |
 
-##Problem 5.\*Mordor&#39;s Cruel Plan
+## Problem 5.\*Mordor&#39;s Cruel Plan
 
 Gandalf the Gray is a great wizard but he also loves to eat and the food makes him loose his capability of fighting the dark. The Mordor&#39;s orcs have asked you to design them a program that calculates Gandalf&#39;s mood, so they can predict the battles between them and try to beat The Gray Wizard.  When Gandalf is hungry, he gets angry and he cannot fight well. The orcs&#39; spy has revealed to them the foods that Gandalf is eating and the result on his mood after he had eaten each of them. Here is the list:
 
@@ -328,7 +328,7 @@ Try to implement a factory pattern. You should have two factory classes – **Fo
 | Cram melon honeyCake Cake | 7Happy |
 | gosho, pesho, meze, Melon, HoneyCake@; | -5Sad |
 
-##Problem 6.Animals
+## Problem 6.Animals
 
 Create a hierarchy of **Animals**. Your program should have three different animals – **Dog** , **Frog** and **Cat**. Deeper in the hierarchy you should have two additional classes – **Kitten** and **Tomcat**. **Kittens are female and Tomcats are male!**
 

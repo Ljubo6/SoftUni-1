@@ -4,7 +4,7 @@ Problems for exercises and homework for the [&quot;C# OOP&quot; course @ SoftUni
 
 You can check your solutions here: [https://judge.softuni.bg/Contests/1498/Encapsulation-Exercise](https://judge.softuni.bg/Contests/1498/Encapsulation-Exercise)
 
-##1. Problem 1.Class Box
+## Problem 1.Class Box
 
 You are given a geometric figure box with parameters length, width and height. Model a class Box that that can be instantiated by the same three parameters. Expose to the outside world only methods for its surface area, lateral surface area and its volume (formulas: [http://www.mathwords.com/r/rectangular\_parallelepiped.htm](http://www.mathwords.com/r/rectangular_parallelepiped.htm)).
 
@@ -17,7 +17,7 @@ On the first three lines you will get the length, width and height. On the next 
 | 234 | Surface Area – 52.00Lateral Surface Area – 40.00Volume – 24.00 |
 | 1.316 | Surface Area - 30.20Lateral Surface Area - 27.60Volume - 7.80 |
 
-##Problem 2.Class Box Data Validation
+## Problem 2.Class Box Data Validation
 
 A box&#39;s side should not be zero or a negative number. Expand your class from the previous problem by adding data validation for each parameter given to the constructor. Make a private setter that performs data validation internally.
 
@@ -27,7 +27,7 @@ A box&#39;s side should not be zero or a negative number. Expand your class from
 | --- | --- |
 | 2-34 | Width cannot be zero or negative. |
 
-##Problem 3.Animal Farm
+## Problem 3.Animal Farm
 
 For this problem you have to download **skeleton**.
 
@@ -66,7 +66,7 @@ Submit your code as a zip file in Judge. Zip everything except the bin and obj f
 | Mara10 | Chicken Mara (age 10) can produce 1 eggs per day. |
 | Mara17 | Age should be between 0 and 15. |
 
-##Problem 4.Shopping Spree
+## Problem 4.Shopping Spree
 
 Create two classes: **class**** Person **and** class ****Product**. Each person should have a **name** , **money** and a **bag**** of products **. Each product should have a** name **and a** cost **. Name cannot be an** empty string **. Money cannot be a** negative number**.
 
@@ -84,7 +84,7 @@ In case of **invalid input** (negative money exception message: &quot; **Money c
 | Mimi=0Kafence=2Mimi KafenceEND | Mimi can&#39;t afford KafenceMimi – Nothing bought |
 | Jeko=-3Chushki=1;Jeko ChushkiEND | Money cannot be negative |
 
-##Problem 5.Pizza Calories
+## Problem 5.Pizza Calories
 
 A Pizza is made of dough and different toppings. You should model a **class Pizza,** which should have a **name** , **dough** and **toppings** as fields. Every type of **ingredient** should have its **own class**. Every ingredient has different properties: the **dough** can be white or wholegrain and in addition, it can be crispy, chewy or homemade. The **toppings** can be of type meat, veggies, cheese or sauce. **Every ingredient** should have a **weight** in grams and a method for **calculating** its calories according to its type. Calories per gram are calculated through **modifiers**. Every ingredient has 2 calories per gram as a **base** and a **modifier** that **gives** the **exact** calories. For example, a white dough has a modifier of 1.5, a chewy dough has a modifier of 1.1, which means that a **white**** chewy **dough, weighting** 100 ****grams** will have 2 \* 100 \* 1.5 \* 1.1 = 330.00 **total**** calories**.
 
@@ -188,7 +188,7 @@ Your task is to print the **name** of the pizza and the **total**** calories** i
 | Pizza BulgarianDough White Chewy 100Topping Sauce 20Topping Cheese 50Topping Cheese 40Topping Meat 10Topping Sauce 10Topping Cheese 30Topping Cheese 40Topping Meat 20Topping Sauce 30Topping Cheese 25Topping Cheese 40Topping Meat 40END | Number of toppings should be in range [0..10]. |
 | Pizza BulgarianDough White Chewy 100Topping Sirene 50Topping Cheese 50Topping Krenvirsh 20Topping Meat 10END | Cannot place Sirene on top of your pizza. |
 
-1. Problem 6.\*\*Football Team Generator
+## Problem 6.\*\*Football Team Generator
 
 A football team has variable **number of players** , a **name** and a **rating**. A player has a **name** and **stats**** , **which are the basis for his skill level. The stats a player has are** endurance **,** sprint **,** dribble **,** passing **and** shooting **. Each stat can be an** integer**in the range [0..100]. The overall**skill ****level** of a **player** is calculated as the **average** of his **stats**. Only the **name** of a player and his **stats** should be visible to the entire outside world. **Everything**** else **should be** hidden**.
 

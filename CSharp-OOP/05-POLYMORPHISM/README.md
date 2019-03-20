@@ -4,7 +4,7 @@ Problems for exercises and homework for the [&quot;C# OOP&quot; course @ SoftUni
 
 You can check your solutions here: [h](https://judge.softuni.bg/Contests/1504/Polymorphism-Exercise)[ttps://judge.softuni.bg/Contests/1504/Polymorphism-Exercise](https://judge.softuni.bg/Contests/1504/Polymorphism-Exercise)
 
-##Problem 1.Vehicles
+## Problem 1.Vehicles
 
 Write a program that models 2 vehicles (a **Car** and a **Truck** ) and simulates **driving** and **refueling** them. **Car** and **truck** both have **fuel quantity** , **fuel consumption**** in liters ****per km** and can be **driven a given distance** and **refueled with a given amount of fuel.** It&#39;s summer, so both vehicles use air conditioners and their **fuel consumption** per km is **increased** by **0.9** liters for the **car** and with **1.6** liters for the **truck**. Also, the **truck** has a tiny hole in its tank and when its **refueled** it keeps only **95%** of the given **fuel**. The **car** has no problems and adds **all the given fuel to its tank.** If a vehicle cannot travel the given distance, its fuel does not change.
 
@@ -40,7 +40,7 @@ Write a program that models 2 vehicles (a **Car** and a **Truck** ) and simulate
 | Car 15 0.3Truck 100 0.94Drive Car 9Drive Car 30Refuel Car 50Drive Truck 10 | Car travelled 9 kmCar needs refuelingTruck travelled 10 kmCar: 54.20Truck: 75.00 |
 | Car 30.4 0.4Truck 99.34 0.95Drive Car 500Drive Car 13.5Refuel Truck 10.300Drive Truck 56.2Refuel Car 100.2 | Car needs refuelingCar travelled 13.5 kmTruck needs refuelingCar: 113.05Truck: 109.13 |
 
-##Problem 2.Vehicles Extension
+## Problem 2.Vehicles Extension
 
 Use your solution of the **previous** task for the starting point and add more functionality. Add a new vehicle – **Bus**. Add to every **vehicle** a new property – **tank**** capacity **. A vehicle cannot** start ****with** or **refuel**** above **its** tank ****capacity**.
 
@@ -97,7 +97,7 @@ Finally, add a **validation** for the **amount** of **fuel** given to the **Refu
 | --- | --- |
 | Car 30 0.04 70Truck 100 0.5 300Bus 40 0.3 1508Refuel Car -10Refuel Truck 0Refuel Car 10Refuel Car 300Drive Bus 10Refuel Bus 1000DriveEmpty Bus 100Refuel Truck 1000   | Fuel must be a positive numberFuel must be a positive numberCannot fit 300 fuel in the tankBus travelled 10 kmCannot fit 1000 fuel in the tankBus needs refuelingCannot fit 1000 fuel in the tankCar: 40.00Truck: 100.00Bus: 23.00 |
 
-##Problem 3.Wild Farm
+## Problem 3.Wild Farm
 
 Your task is to create a **class**** hierarchy **like the** described ****below**. The **Animal** , **Bird** , **Mammal** , **Feline** and **Food** classes should be **abstract**. Override the method **ToString()**.
 
