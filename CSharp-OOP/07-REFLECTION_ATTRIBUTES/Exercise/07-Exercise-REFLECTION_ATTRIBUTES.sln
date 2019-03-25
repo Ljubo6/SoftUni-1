@@ -7,11 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P01.HarvestingFields", "P01
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P02.BlackBoxInteger", "P02.BlackBoxInteger\P02.BlackBoxInteger.csproj", "{DDFDF720-2A11-4D30-A4E3-02E333C0B8E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P03.BarracksWars", "P03.BarraksWars\P03.BarracksWars.csproj", "{0911D26C-8EA8-46D7-91A1-E9A89425749C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P03.BarracksWars", "P03.BarraksWars\P03.BarracksWars.csproj", "{0911D26C-8EA8-46D7-91A1-E9A89425749C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P06.TrafficLights", "P06.TrafficLights\P06.TrafficLights.csproj", "{7892BA16-1425-43ED-B2F3-9DCCE2D8E69F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P06.TrafficLights", "P06.TrafficLights\P06.TrafficLights.csproj", "{7892BA16-1425-43ED-B2F3-9DCCE2D8E69F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P07.InfernoInfinity", "P07.InfernoInfinity\P07.InfernoInfinity.csproj", "{D75DFE18-400A-4FF1-97FF-B79BB7156790}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P07.InfernoInfinity", "P07.InfernoInfinity\P07.InfernoInfinity.csproj", "{D75DFE18-400A-4FF1-97FF-B79BB7156790}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

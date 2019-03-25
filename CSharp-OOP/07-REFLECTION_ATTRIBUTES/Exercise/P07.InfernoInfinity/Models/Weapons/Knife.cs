@@ -6,13 +6,13 @@ namespace P07.InfernoInfinity.Models.Weapons
     public class Knife : Weapon
     {
         private const int socketsCount = 2;
+        private const int defaultMinDamage = 3;
+        private const int defaultMaxDamage = 4;
 
-        public Knife(RarityLevel rarityLevel, string name) : base(rarityLevel, name)
+        public Knife(RarityLevel rarityLevel, string name) 
+            : base(rarityLevel, name, defaultMinDamage, defaultMaxDamage)
         {
             this.Sockets = new IGem[socketsCount];
         }
-
-        protected override int DefaultMinDamage => 3;
-        protected override int DefaultMaxDamage => 4;
     }
 }

@@ -5,15 +5,14 @@ namespace P07.InfernoInfinity.Models.Weapons
 {
     public class Axe : Weapon
     {
-        protected const int socketsCount = 4;
+        private const int socketsCount = 4;
+        private const int defaultMinDamage = 5;
+        private const int defaultMaxDamage = 10;
 
         public Axe(RarityLevel rarityLevel, string name) 
-            : base(rarityLevel, name)
+            : base(rarityLevel, name, defaultMinDamage, defaultMaxDamage)
         {
             this.Sockets = new IGem[socketsCount];
         }
-
-        protected override int DefaultMinDamage => 5;
-        protected override int DefaultMaxDamage => 10;
     }
 }
