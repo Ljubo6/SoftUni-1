@@ -1,7 +1,4 @@
 ﻿using P07.InfernoInfinity.Enums;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace P07.InfernoInfinity.Contracts
 {
@@ -12,7 +9,5 @@ namespace P07.InfernoInfinity.Contracts
         string Name { get; }
         IGem[] Sockets { get; }
         RarityLevel RarityLevel { get; }
-        void AddGem(int index, IGem gem);
-        void RemoveGem(int index);
     }
 }

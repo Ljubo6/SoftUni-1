@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using P07.InfernoInfinity.Contracts;
+﻿using P07.InfernoInfinity.Contracts;
 using P07.InfernoInfinity.Enums;
 
 namespace P07.InfernoInfinity.Models.Weapons

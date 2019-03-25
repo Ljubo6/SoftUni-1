@@ -1,8 +1,5 @@
 ﻿using P07.InfernoInfinity.Contracts;
 using P07.InfernoInfinity.Enums;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace P07.InfernoInfinity.Models.Gems
 {
@@ -10,7 +7,7 @@ namespace P07.InfernoInfinity.Models.Gems
     {
         public Gem(ClarityLevel clarityLevel)
         {
-            this.ClarityLevel = ClarityLevel;
+            this.ClarityLevel = clarityLevel;
         }
 
         public abstract int Strenght { get; }

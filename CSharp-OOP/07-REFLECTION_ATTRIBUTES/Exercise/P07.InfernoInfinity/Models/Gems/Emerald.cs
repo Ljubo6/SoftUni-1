@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using P07.InfernoInfinity.Enums;
+﻿using P07.InfernoInfinity.Enums;
 
 namespace P07.InfernoInfinity.Models.Gems
 {

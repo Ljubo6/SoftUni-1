@@ -1,9 +1,6 @@
 ﻿using P07.InfernoInfinity.Contracts;
 using P07.InfernoInfinity.Enums;
-using System;
 using System.Linq;
-using System.Collections.Generic;
-using System.Text;
 
 namespace P07.InfernoInfinity.Models.Weapons
 {
@@ -38,25 +35,18 @@ namespace P07.InfernoInfinity.Models.Weapons
 
         protected abstract int DefaultMaxDamage { get; }
 
-        public void AddGem(int index, IGem gem)
-        {
-            if(index < this.Sockets.Length)
-            {
-                this.Sockets[index] = gem;
-            }
-        }
-
-        public void RemoveGem(int index)
-        {
-            if (index < this.Sockets.Length)
-            {
-                this.Sockets[index] = null;
-            }
-        }
-
         protected virtual int CalculateDamage(int defaultMinDemage)
         {
             return defaultMinDemage * (int)RarityLevel;
+        }
+
+        public override string ToString()
+        {
+            var strengthPoints = this.Sockets.Where(x => x != null).Sum(x => x.Strenght);
+            var agilityPoints = this.Sockets.Where(x => x != null).Sum(x => x.Agility);
+            var vitalityPoints = this.Sockets.Where(x => x != null).Sum(x => x.Vitality);
+
+            return $"{this.Name}: {this.MinDamage}-{this.MaxDamage} Damage, +{strengthPoints} Strength, +{agilityPoints} Agility, +{vitalityPoints} Vitality";
         }
     }
 }
