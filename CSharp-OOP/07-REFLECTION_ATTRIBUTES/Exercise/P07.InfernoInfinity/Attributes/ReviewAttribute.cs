@@ -13,12 +13,12 @@ namespace P07.InfernoInfinity.Attributes
             this.Author = author;
             this.Revision = revision;
             this.Description = description;
-            this.Reviwers = reviewers.ToList();
+            this.Reviewers = reviewers.ToList();
         }
 
         public string Author { get; set; }
         public int Revision { get; set; }
         public string Description { get; set; }
-        public List<string> Reviwers { get; set; }
+        public List<string> Reviewers { get; set; }
     }
 }
