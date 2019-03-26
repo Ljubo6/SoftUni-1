@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace P07.InfernoInfinity.Models.Weapons
 {
-    [Review("Pesho", 3, "Used for C# OOP Advanced Course - Enumerations and Attributes.", "Pesho", "Svetlio")]
+    [Class("Pesho", 3, "Used for C# OOP Advanced Course - Enumerations and Attributes.", "Pesho", "Svetlio")]
     public abstract class Weapon : IWeapon
     {
         private int socketsCount;

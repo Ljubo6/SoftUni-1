@@ -6,9 +6,9 @@ using System.Text;
 namespace P07.InfernoInfinity.Attributes
 {
     [AttributeUsage(AttributeTargets.Class)]
-    public class ReviewAttribute : Attribute
+    public class ClassAttribute : Attribute
     {
-        public ReviewAttribute(string author, int revision, string description, params string[] reviewers)
+        public ClassAttribute(string author, int revision, string description, params string[] reviewers)
         {
             this.Author = author;
             this.Revision = revision;

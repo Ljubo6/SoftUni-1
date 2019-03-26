@@ -11,12 +11,12 @@ namespace P07.InfernoInfinity.Commands
         {
         }
 
-        protected ReviewAttribute AttributeType
+        protected ClassAttribute AttributeType
         {
             get
             {
                 var type = typeof(Weapon);
-                var attribute = (ReviewAttribute)type.GetCustomAttributes(false).FirstOrDefault();
+                var attribute = (ClassAttribute)type.GetCustomAttributes(false).FirstOrDefault();
                 return attribute;
             }
         }

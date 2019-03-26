@@ -12,7 +12,8 @@ namespace P07.InfernoInfinity.Commands
 
         public override void Execute()
         {
-            this.Print(this.AttributeType.Description);
+            var output = "Class description: " + this.AttributeType.Description.ToString();
+            Console.WriteLine(output);
         }
     }
 }
