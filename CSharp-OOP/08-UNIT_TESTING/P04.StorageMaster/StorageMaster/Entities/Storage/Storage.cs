@@ -97,12 +97,12 @@
 			}
 		}
 
-		private int AddVehicle(Vehicle vehicle)
-		{
-			var freeGarageSlotIndex = Array.IndexOf(this.garage, null);
-			this.garage[freeGarageSlotIndex] = vehicle;
+        private int AddVehicle(Vehicle vehicle)
+        {
+            var freeGarageSlotIndex = Array.IndexOf(this.garage, null);
+            this.garage[freeGarageSlotIndex] = vehicle;
 
-			return freeGarageSlotIndex;
-		}
-	}
+            return freeGarageSlotIndex;
+        }
+    }
 }
