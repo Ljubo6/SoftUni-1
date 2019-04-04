@@ -45,7 +45,7 @@ Do not forget to test the constructor(s). They are methods too!
 
 ## Problem 3.Custom Linked List
 
-Use the VS **solution**&quot; **CustomLinkedList**&quot;.
+Use the VS **solution &quot;**CustomLinkedList**&quot;.
 
 - Create new **Unit**** Test ****Project** and **add**** reference **to the &quot;** CustomLinkedList**&quot;.
 - Create Test Methods for **all public members** that need testing.
@@ -57,6 +57,6 @@ Use the VS **solution**&quot; **CustomLinkedList**&quot;.
 
 You are given a quite familiar with C# OOP Basic Exam  -  Storage Master. You have provided author solution, and your task is to create unit tests, for the skeleton structure and for business logic.
 
-- Create two **Unit**** Test ****Projects** called **StorageMester.Tests.Structure** and **StorageMester. Tests.BusinessLogic**. **Add**** reference **to the &quot;** StorageMaster**&quot;.
+- Create two **Unit Test Projects** called **StorageMester.Tests.Structure** and **StorageMester.Tests.BusinessLogic**. **Add** reference **to the &quot;** StorageMaster**&quot;.
 - For the **StorageMester.Tests.Structure** you need to test if all fields, consts, propeties, constructorsand methods exists.
 - For the **StorageMester.BusinessLogic.Tests** you need to test if all business methods are implemented properly.

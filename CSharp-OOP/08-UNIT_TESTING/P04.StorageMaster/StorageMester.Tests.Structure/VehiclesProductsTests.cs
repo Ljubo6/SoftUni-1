@@ -9,13 +9,13 @@ namespace StorageMester.Tests.Structure
     [TestFixture]
     public class VehiclesProductsTests
     {
-        Product hd;
-        Product ram;
-        Product ssd;
+        private Product hd;
+        private Product ram;
+        private Product ssd;
 
-        Vehicle semi;
-        Vehicle truck;
-        Vehicle van;
+        private Vehicle semi;
+        private Vehicle truck;
+        private Vehicle van;
 
 
         [SetUp]
