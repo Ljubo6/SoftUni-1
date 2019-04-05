@@ -100,5 +100,15 @@ namespace StorageMester.Tests.Structure
             Assert.AreEqual(50, ram.Price, "RAM price mismatch!");
             Assert.AreEqual(100, ssd.Price, "Solid State Drive price mismatch!");
         }
+
+        [Test]
+        public void Consts_AllSpecificProducts_ShouldThrowExceptionWithNegativePrice()
+        {
+            Assert.Throws<InvalidOperationException>(() => { var gpu = new Gpu(-1); });
+            Assert.Throws<InvalidOperationException>(() => { var ram = new Ram(-1); });
+            Assert.Throws<InvalidOperationException>(() => { var hd = new SolidStateDrive(-1); });
+            Assert.Throws<InvalidOperationException>(() => { var ssd = new HardDrive(-1); });
+        }
+
     }
 }

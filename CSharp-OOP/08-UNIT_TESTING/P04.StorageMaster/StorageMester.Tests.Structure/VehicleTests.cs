@@ -47,12 +47,10 @@ namespace StorageMester.Tests.Structure
         [Test]
         public void Field_ShouldHaveFieldsOfCorrectType()
         {
-            var fields = type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
-            var firstField = fields.First();
-            var secondField = fields.Last();
+            var fieldsTypes = type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance).Select(f => f.FieldType);
+            var expected = new Type[] { typeof(int), typeof(List<Product>) };
 
-            Assert.That(firstField.FieldType == typeof(List<Product>), "First field is not of expected type!");
-            Assert.That(secondField.FieldType == typeof(int), "Second field is not of expected type!");
+            CollectionAssert.AreEquivalent(fieldsTypes, expected, "At least one field type does not match!");
         }
 
         [Test]
@@ -67,7 +65,7 @@ namespace StorageMester.Tests.Structure
         {
             var propsNames = type.GetProperties(BindingFlags.Instance | BindingFlags.Public).Select(p => p.Name);
             var expected = new string[] { "Capacity", "Trunk", "IsFull", "IsEmpty" };
-            CollectionAssert.AreEqual(expected, propsNames, "Names of class properties mismatch!");
+            CollectionAssert.AreEquivalent(expected, propsNames, "Names of class properties mismatch!");
         }
 
         [Test]
@@ -94,10 +92,15 @@ namespace StorageMester.Tests.Structure
         }
 
         [Test]
-        public void Consts_AllSpecificVehicles_ShouldSetConstsAndPropertyValuesCorrectlyUponInitialisation()
+        public void Consts_AllSpecificVehicles_ShouldSetVehicleCapacityCorrectlyUponInitialisation()
         {
-            //TODO
-            throw new NotImplementedException();
+            var semi = new Semi();
+            var truck = new Truck();
+            var van = new Van();
+
+            Assert.AreEqual(10, semi.Capacity, "Semi capacity mismatch when new vehicle is initialised!");
+            Assert.AreEqual(5, truck.Capacity, "Truck capacity mismatch when new vehicle is initialised!");
+            Assert.AreEqual(2, van.Capacity, "Van capacity mismatch when new vehicle is initialised!");
         }
     }
 }
