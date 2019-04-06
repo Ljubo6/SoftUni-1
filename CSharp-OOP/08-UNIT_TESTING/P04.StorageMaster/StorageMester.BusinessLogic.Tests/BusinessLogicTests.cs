@@ -1,33 +1,23 @@
-﻿using NUnit.Framework;
-using StorageMaster.Entities.Products;
-using StorageMaster.Entities.Storage;
-using StorageMaster.Entities.Vehicles;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-
-namespace StorageMester.BusinessLogic.Tests
+﻿namespace StorageMester.BusinessLogic.Tests
 {
+    using NUnit.Framework;
+    using StorageMaster.Entities.Products;
+    using StorageMaster.Entities.Storage;
+    using StorageMaster.Entities.Vehicles;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+
     [TestFixture]
     public class BusinessLogicTests
     {
         private StorageMaster.Core.StorageMaster storageMaster;
 
-        private Product gpu;
-        private Product hd;
-        private Product ram;
-        private Product ssd;
-
         [SetUp]
         public void Setup()
         {
             storageMaster = new StorageMaster.Core.StorageMaster();
-
-            this.ram = new Ram(49.99); //W = 0.1
-            this.ssd = new SolidStateDrive(149.99); //W = 0.2
-            this.gpu = new Gpu(199.99); //W = 0.7
-            this.hd = new HardDrive(99.99); //W = 1
         }
 
         [Test]
@@ -97,7 +87,7 @@ namespace StorageMester.BusinessLogic.Tests
         [Test]
         public void RegisterStorage_ShouldThrowExceptionWithInvalidProductType()
         {
-            Assert.Throws<InvalidOperationException>(() => storageMaster.RegisterStorage("Shop", "Shop"), 
+            Assert.Throws<InvalidOperationException>(() => storageMaster.RegisterStorage("Shop", "Shop"),
                 "Registering storage of invalid type was allowed!");
         }
 
@@ -158,7 +148,7 @@ namespace StorageMester.BusinessLogic.Tests
         }
 
         [Test]
-        public void LoadVehicle_ShouldReturnCorrectOutut()
+        public void LoadVehicle_ShouldReturnCorrectOutput()
         {
             storageMaster.AddProduct("Ram", 100);
             storageMaster.AddProduct("Ram", 10);
@@ -201,13 +191,144 @@ namespace StorageMester.BusinessLogic.Tests
             storageMaster.RegisterStorage("Warehouse", "Warehouse");
             storageMaster.SelectVehicle("Warehouse", 0);
 
-            Assert.Throws<InvalidOperationException>(() => storageMaster.LoadVehicle(new string[] { "HardDrive" }));
+            Assert.Throws<InvalidOperationException>(() => storageMaster.LoadVehicle(new string[] { "HardDrive" }),
+                "The method loads an unavailable product!");
         }
 
-        //SendVehicleTo
-        //UnloadVehicle
-        //GetStorageStatus
-        //GetSummary
+        [Test]
+        public void SendVehicleToMethod_ShouldReturnCorrectOutput()
+        {
+            storageMaster.RegisterStorage("Warehouse", "Warehouse");
+            storageMaster.RegisterStorage("AutomatedWarehouse", "Automated Warehouse");
+
+            var actualOutput = storageMaster.SendVehicleTo("Warehouse", 0, "Automated Warehouse");
+            var expectedOutput = "Sent Semi to Automated Warehouse (slot 1)";
+
+            Assert.AreEqual(expectedOutput, actualOutput, "Returned output mismatch!");
+        }
+
+        [Test]
+        public void SendVehicleToMethod_StoragesShouldHaveCorrectCountOfVehiclesInGarage()
+        {
+            storageMaster.RegisterStorage("Warehouse", "Warehouse");
+            storageMaster.RegisterStorage("AutomatedWarehouse", "Automated Warehouse");
+            storageMaster.SendVehicleTo("Warehouse", 0, "Automated Warehouse");
+
+            var storage = storageMaster
+                .GetType()
+                .GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
+                .FirstOrDefault(s => s.FieldType == typeof(Dictionary<string, Storage>));
+
+            var storageValue = (Dictionary<string, Storage>)storage.GetValue(storageMaster);
+
+            var warehouseVehiclesCount = storageValue["Warehouse"].Garage.Where(x => x != null).Count();
+            var automatedWarehouseVehiclesCount = storageValue["Automated Warehouse"].Garage.Where(x => x!=null).Count();
+
+            Assert.AreEqual(2, warehouseVehiclesCount, "Count of vehicles in garage after sending one away mismatch!");
+            Assert.AreEqual(2, automatedWarehouseVehiclesCount, "Count of vehicles in garage after accommodating one mismatch!");
+        }
+
+        [Test]
+        public void SendVehicleToMethod_ShouldThrowExceptionWithInvalidSource()
+        {
+            storageMaster.RegisterStorage("Warehouse", "Warehouse");
+            Assert.Throws<InvalidOperationException>(() => storageMaster.SendVehicleTo("Automated Warehouse", 0, "Warehouse"));
+        }
+
+        [Test]
+        public void SendVehicleToMethod_ShouldThrowExceptionWithInvalidDestination()
+        {
+            storageMaster.RegisterStorage("Warehouse", "Warehouse");
+            Assert.Throws<InvalidOperationException>(() => storageMaster.SendVehicleTo("Warehouse", 0, "Automated Warehouse"));
+        }
+
+        [Test]
+        public void SendVehicleToMethod_ShouldThrowExceptionWhenNoFreeSlotsInDestinationGarage()
+        {
+            storageMaster.RegisterStorage("Warehouse", "Warehouse");
+            storageMaster.RegisterStorage("AutomatedWarehouse", "Automated Warehouse");
+            storageMaster.SendVehicleTo("Warehouse", 0, "Automated Warehouse");
+
+            Assert.Throws<InvalidOperationException>(() => storageMaster.SendVehicleTo("Warehouse", 1, "Automated Warehouse"));
+        }
+
+        [Test]
+        public void UnloadVehicle_ShouldReturnCorrectOutputWhenProductsWeightExceedsStorageCapacity()
+        {
+            storageMaster.RegisterStorage("Warehouse", "Warehouse");
+            storageMaster.RegisterStorage("DistributionCenter", "Distribution Center");
+
+            storageMaster.SelectVehicle("Warehouse", 0);
+            for (int i = 0; i < 10; i++)
+            {
+                storageMaster.AddProduct("HardDrive", 100);
+                storageMaster.LoadVehicle(new string[] { "HardDrive" });
+            }
+
+            storageMaster.SendVehicleTo("Warehouse", 0, "Distribution Center");
+
+            var actualOutput = storageMaster.UnloadVehicle("Distribution Center", 3);
+            var expectedOutput = "Unloaded 2/10 products at Distribution Center";
+
+            Assert.AreEqual(expectedOutput, actualOutput, "Returned output mismatch!");
+
+        }
+
+        [Test]
+        public void GetStorageStatus_ShouldReturnCorrectOutput()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                storageMaster.AddProduct("Ram", 100);
+                storageMaster.AddProduct("Gpu", 200);
+                storageMaster.AddProduct("HardDrive", 50);
+                storageMaster.AddProduct("SolidStateDrive", 150);
+            }
+
+            storageMaster.RegisterStorage("AutomatedWarehouse", "Automated Warehouse");
+            storageMaster.RegisterStorage("Warehouse", "Warehouse");
+
+            storageMaster.SelectVehicle("Automated Warehouse", 0);
+            storageMaster.LoadVehicle(new string[] { "Ram", "Ram", "Gpu", "HardDrive", "SolidStateDrive", "Gpu", "Ram", "Ram" });
+            storageMaster.SendVehicleTo("Automated Warehouse", 0, "Warehouse");
+            storageMaster.UnloadVehicle("Warehouse", 3);
+
+            var actualOutput = storageMaster.GetStorageStatus("Warehouse");
+            var expectedOutput = "Stock (3/10): [Ram (4), Gpu (2), HardDrive (1), SolidStateDrive (1)]\r\n" +
+                "Garage: [Semi|Semi|Semi|Truck|empty|empty|empty|empty|empty|empty]";
+
+            Assert.AreEqual(expectedOutput, actualOutput, "Status output mismatch!");
+        }
+
+        [Test]
+        public void GetSummary_ShouldReturnCorrectOutput()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                storageMaster.AddProduct("Ram", 100);
+                storageMaster.AddProduct("Gpu", 200);
+                storageMaster.AddProduct("HardDrive", 50);
+                storageMaster.AddProduct("SolidStateDrive", 150);
+            }
+
+            storageMaster.RegisterStorage("AutomatedWarehouse", "Automated Warehouse");
+            storageMaster.RegisterStorage("Warehouse", "Warehouse");
+
+            storageMaster.SelectVehicle("Automated Warehouse", 0);
+            storageMaster.LoadVehicle(new string[] { "Ram", "Ram", "Gpu", "HardDrive", "SolidStateDrive", "Gpu", "Ram", "Ram" });
+            storageMaster.SendVehicleTo("Automated Warehouse", 0, "Warehouse");
+            storageMaster.UnloadVehicle("Warehouse", 3);
+
+            storageMaster.SelectVehicle("Warehouse", 0);
+            storageMaster.LoadVehicle(new string[] { "Gpu", "Ram", "Ram" });
+            storageMaster.SendVehicleTo("Warehouse", 0, "Automated Warehouse");
+            storageMaster.UnloadVehicle("Automated Warehouse", 0);
+
+            var actualOutput = storageMaster.GetSummary();
+            var expectedOutput = "Warehouse:\r\nStorage worth: $1000.00\r\nAutomated Warehouse:\r\nStorage worth: $400.00";
+
+            Assert.AreEqual(expectedOutput, actualOutput, "Storages Summary mismatch!");
+        }
     }
 }
 

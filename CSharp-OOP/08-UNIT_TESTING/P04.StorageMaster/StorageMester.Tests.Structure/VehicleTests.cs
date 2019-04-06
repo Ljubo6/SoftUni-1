@@ -1,14 +1,13 @@
-﻿using NUnit.Framework;
-using StorageMaster.Entities.Products;
-using StorageMaster.Entities.Vehicles;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-
-namespace StorageMester.Tests.Structure
+﻿namespace StorageMester.Tests.Structure
 {
+    using NUnit.Framework;
+    using StorageMaster.Entities.Products;
+    using StorageMaster.Entities.Vehicles;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+
     [TestFixture]
     class VehicleTests
     {

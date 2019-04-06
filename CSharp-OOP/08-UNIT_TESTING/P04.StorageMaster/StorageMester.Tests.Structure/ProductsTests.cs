@@ -1,13 +1,11 @@
-﻿using NUnit.Framework;
-using StorageMaster.Entities.Products;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-
-namespace StorageMester.Tests.Structure
+﻿namespace StorageMester.Tests.Structure
 {
+    using NUnit.Framework;
+    using StorageMaster.Entities.Products;
+    using System;
+    using System.Linq;
+    using System.Reflection;
+
     public class ProductsTests
     {
         private Type type;
