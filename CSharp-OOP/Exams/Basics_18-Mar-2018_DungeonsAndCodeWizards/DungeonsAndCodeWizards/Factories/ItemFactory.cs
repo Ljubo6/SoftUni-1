@@ -18,7 +18,7 @@ namespace DungeonsAndCodeWizards.Factories
 
             if (instanceType == null)
             {
-                throw new ArgumentException($"Invalid item \"{itemName}\"");
+                throw new ArgumentException($"Invalid item \"{itemName}\"!");
             }
 
             var instance = (Item)Activator.CreateInstance(instanceType);

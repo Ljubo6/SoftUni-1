@@ -35,6 +35,11 @@ namespace DungeonsAndCodeWizards.Bags
 
         public Item GetItem(string name)
         {
+            if(this.Items.Count == 0)
+            {
+                throw new InvalidOperationException("Bag is empty!");
+            }
+
             var item = this.Items.FirstOrDefault(i => i.GetType().Name == name);
 
             if (item == null)

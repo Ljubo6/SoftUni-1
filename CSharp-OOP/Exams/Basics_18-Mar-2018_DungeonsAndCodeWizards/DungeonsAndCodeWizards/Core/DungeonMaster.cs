@@ -34,7 +34,7 @@ namespace DungeonsAndCodeWizards.Core
 
             if (!Enum.TryParse(factionString, out Faction faction))
             {
-                throw new ArgumentException($"Invalid faction \"{factionString}\"");
+                throw new ArgumentException($"Invalid faction \"{factionString}\"!");
             }
 
             var newCharacter = characterFactory.Create(characterTypeString, name, faction);
@@ -175,15 +175,16 @@ namespace DungeonsAndCodeWizards.Core
         public string EndTurn(string[] args)
         {
             var sb = new StringBuilder();
+            var liveCharacters = this.characters.Where(c => c.IsAlive);
 
-            foreach (var character in this.characters)
+            foreach (var character in liveCharacters)
             {
                 var healthBeforeRest = character.Health;
                 character.Rest();
                 sb.AppendLine($"{character.Name} rests ({healthBeforeRest} => {character.Health})");
             }
 
-            if(this.characters.Where(c => c.IsAlive).Count() <= 1)
+            if(liveCharacters.Count() <= 1)
             {
                 this.lastSurvivorRounds++;
             }
