@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using DungeonsAndCodeWizards.Characters;
-using DungeonsAndCodeWizards.Contracts;
-
-namespace DungeonsAndCodeWizards.Items
+﻿namespace DungeonsAndCodeWizards.Items
 {
+    using DungeonsAndCodeWizards.Characters;
+
     public class HealthPotion : Item
     {
         private const int DefaultWeight = 5;

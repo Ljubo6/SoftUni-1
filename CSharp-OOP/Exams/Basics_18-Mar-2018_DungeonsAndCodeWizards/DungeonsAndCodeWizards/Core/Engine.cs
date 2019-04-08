@@ -1,19 +1,17 @@
-﻿using DungeonsAndCodeWizards.Core.IO;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DungeonsAndCodeWizards.Core
+﻿namespace DungeonsAndCodeWizards.Core
 {
+    using DungeonsAndCodeWizards.Contracts;
+    using DungeonsAndCodeWizards.Core.IO;
+
     public class Engine
     {
-        private CommandInterpreter commandInterpreter;
-        private DungeonMaster dungeonMaster;
+        private ICommandInterpreter commandInterpreter;
+        private IDungeonMaster dungeonMaster;
 
-        public Engine()
+        public Engine(ICommandInterpreter commandInterpreter, IDungeonMaster dungeonMaster)
         {
-            this.dungeonMaster = new DungeonMaster();
-            this.commandInterpreter = new CommandInterpreter(dungeonMaster);
+            this.dungeonMaster = dungeonMaster;
+            this.commandInterpreter = commandInterpreter;
         }
 
         public void Run()

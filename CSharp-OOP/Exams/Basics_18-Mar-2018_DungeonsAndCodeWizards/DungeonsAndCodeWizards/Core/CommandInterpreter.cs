@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-
-namespace DungeonsAndCodeWizards.Core
+﻿namespace DungeonsAndCodeWizards.Core
 {
-    public class CommandInterpreter
-    {
-        private readonly DungeonMaster dungeonMaster;
+    using DungeonsAndCodeWizards.Contracts;
+    using System;
+    using System.Linq;
+    using System.Reflection;
 
-        public CommandInterpreter(DungeonMaster dungeonMaster)
+    public class CommandInterpreter : ICommandInterpreter
+    {
+        private readonly IDungeonMaster dungeonMaster;
+
+        public CommandInterpreter(IDungeonMaster dungeonMaster)
         {
             this.dungeonMaster = dungeonMaster;
         }
@@ -19,11 +18,6 @@ namespace DungeonsAndCodeWizards.Core
         {
             var data = input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
             var commandString = data[0];
-
-            //if(commandString == "GetStats")
-            //{
-            //    return this.dungeonMaster.GetStats();
-            //}
 
             var args = data.Skip(1).ToArray();
 

@@ -1,11 +1,9 @@
-﻿using DungeonsAndCodeWizards.Characters;
-using DungeonsAndCodeWizards.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DungeonsAndCodeWizards.Items
+﻿namespace DungeonsAndCodeWizards.Items
 {
+    using DungeonsAndCodeWizards.Characters;
+    using DungeonsAndCodeWizards.Contracts;
+    using System;
+
     public abstract class Item : IItem
     {
         protected Item(int weight)

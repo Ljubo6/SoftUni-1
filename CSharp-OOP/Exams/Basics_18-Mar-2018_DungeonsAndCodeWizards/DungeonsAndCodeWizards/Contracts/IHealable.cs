@@ -1,10 +1,10 @@
-﻿using DungeonsAndCodeWizards.Characters;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DungeonsAndCodeWizards.Contracts
+﻿namespace DungeonsAndCodeWizards.Contracts
 {
+    using DungeonsAndCodeWizards.Characters;
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
     public interface IHealable
     {
         void Heal(Character character);

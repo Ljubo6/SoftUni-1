@@ -1,10 +1,7 @@
-﻿using DungeonsAndCodeWizards.Characters;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DungeonsAndCodeWizards.Contracts
+﻿namespace DungeonsAndCodeWizards.Contracts
 {
+    using DungeonsAndCodeWizards.Characters;
+
     public interface IAttackable
     {
         void Attack(Character character);

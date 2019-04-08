@@ -1,13 +1,10 @@
-﻿using DungeonsAndCodeWizards.Bags;
-using DungeonsAndCodeWizards.Characters;
-using DungeonsAndCodeWizards.Data;
-using DungeonsAndCodeWizards.Items;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DungeonsAndCodeWizards.Contracts
+﻿namespace DungeonsAndCodeWizards.Contracts
 {
+    using DungeonsAndCodeWizards.Bags;
+    using DungeonsAndCodeWizards.Characters;
+    using DungeonsAndCodeWizards.Data;
+    using DungeonsAndCodeWizards.Items;
+
     public interface ICharacter
     {
         string Name { get; }

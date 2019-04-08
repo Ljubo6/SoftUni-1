@@ -1,10 +1,8 @@
-﻿using DungeonsAndCodeWizards.Items;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DungeonsAndCodeWizards.Contracts
+﻿namespace DungeonsAndCodeWizards.Contracts
 {
+    using DungeonsAndCodeWizards.Items;
+    using System.Collections.Generic;
+
     public interface IBag
     {
         int Capacity { get; }

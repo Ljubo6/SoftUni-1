@@ -1,13 +1,11 @@
-﻿using DungeonsAndCodeWizards.Bags;
-using DungeonsAndCodeWizards.Contracts;
-using DungeonsAndCodeWizards.Data;
-using DungeonsAndCodeWizards.Items;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DungeonsAndCodeWizards.Characters
+﻿namespace DungeonsAndCodeWizards.Characters
 {
+    using DungeonsAndCodeWizards.Bags;
+    using DungeonsAndCodeWizards.Contracts;
+    using DungeonsAndCodeWizards.Data;
+    using DungeonsAndCodeWizards.Items;
+    using System;
+
     public abstract class Character : ICharacter
     {
         private string name;

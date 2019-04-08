@@ -1,12 +1,10 @@
-﻿using DungeonsAndCodeWizards.Items;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-
-namespace DungeonsAndCodeWizards.Factories
+﻿namespace DungeonsAndCodeWizards.Factories
 {
+    using DungeonsAndCodeWizards.Items;
+    using System;
+    using System.Linq;
+    using System.Reflection;
+
     public class ItemFactory
     {
         public Item Create(string itemName)

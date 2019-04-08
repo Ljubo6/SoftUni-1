@@ -1,15 +1,16 @@
-﻿using DungeonsAndCodeWizards.Characters;
-using DungeonsAndCodeWizards.Data;
-using DungeonsAndCodeWizards.Factories;
-using DungeonsAndCodeWizards.Items;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace DungeonsAndCodeWizards.Core
+﻿namespace DungeonsAndCodeWizards.Core
 {
-    public class DungeonMaster
+    using DungeonsAndCodeWizards.Characters;
+    using DungeonsAndCodeWizards.Contracts;
+    using DungeonsAndCodeWizards.Data;
+    using DungeonsAndCodeWizards.Factories;
+    using DungeonsAndCodeWizards.Items;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+
+    public class DungeonMaster : IDungeonMaster
     {
         private CharacterFactory characterFactory;
         private ItemFactory itemFactory;

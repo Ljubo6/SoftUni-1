@@ -1,13 +1,13 @@
-﻿using DungeonsAndCodeWizards.Characters;
-using DungeonsAndCodeWizards.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-
-namespace DungeonsAndCodeWizards.Factories
+﻿namespace DungeonsAndCodeWizards.Factories
 {
+    using DungeonsAndCodeWizards.Characters;
+    using DungeonsAndCodeWizards.Data;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+    using System.Text;
+
     public class CharacterFactory
     {
         public Character Create(string type, string name, Faction faction)

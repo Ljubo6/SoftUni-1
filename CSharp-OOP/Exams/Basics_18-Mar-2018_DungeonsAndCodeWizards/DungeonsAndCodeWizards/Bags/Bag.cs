@@ -1,12 +1,11 @@
-﻿using DungeonsAndCodeWizards.Contracts;
-using DungeonsAndCodeWizards.Items;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace DungeonsAndCodeWizards.Bags
+﻿namespace DungeonsAndCodeWizards.Bags
 {
+    using DungeonsAndCodeWizards.Contracts;
+    using DungeonsAndCodeWizards.Items;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     public abstract class Bag : IBag
     {
         private readonly List<Item> items;

@@ -1,12 +1,10 @@
-﻿using DungeonsAndCodeWizards.Bags;
-using DungeonsAndCodeWizards.Contracts;
-using DungeonsAndCodeWizards.Data;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DungeonsAndCodeWizards.Characters
+﻿namespace DungeonsAndCodeWizards.Characters
 {
+    using DungeonsAndCodeWizards.Bags;
+    using DungeonsAndCodeWizards.Contracts;
+    using DungeonsAndCodeWizards.Data;
+    using System;
+
     public class Cleric : Character, IHealable
     {
         public Cleric(string name, Faction faction)

@@ -1,10 +1,10 @@
-﻿using DungeonsAndCodeWizards.Bags;
-using DungeonsAndCodeWizards.Contracts;
-using DungeonsAndCodeWizards.Data;
-using System;
-
-namespace DungeonsAndCodeWizards.Characters
+﻿namespace DungeonsAndCodeWizards.Characters
 {
+    using DungeonsAndCodeWizards.Bags;
+    using DungeonsAndCodeWizards.Contracts;
+    using DungeonsAndCodeWizards.Data;
+    using System;
+
     public class Warrior : Character, IAttackable
     {
         private const int DefaultBaseHealth = 100;
