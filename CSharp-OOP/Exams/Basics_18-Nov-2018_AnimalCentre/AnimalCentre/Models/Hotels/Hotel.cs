@@ -27,10 +27,10 @@
         public void Adopt(string animalName, string owner)
         {
             this.CheckForAnimalInHotel(animalName);
-            this.AddoptAnimal(animalName, owner);
+            this.AdoptAnimal(animalName, owner);
         }
 
-        private void AddoptAnimal(string animalName, string owner)
+        private void AdoptAnimal(string animalName, string owner)
         {
             this.hotel[animalName].Owner = owner;
             this.hotel[animalName].IsAdopt = true;

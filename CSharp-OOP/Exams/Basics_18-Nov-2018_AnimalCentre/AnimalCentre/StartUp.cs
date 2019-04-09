@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AnimalCentre.Core;
+using System;
 
 namespace AnimalCentre
 {
@@ -6,7 +7,11 @@ namespace AnimalCentre
     {
         public static void Main(string[] args)
         {
-            //TODO Run your application from here
+            var animalCentre = new Core.AnimalCentre();
+            var commandInterpreter = new CommandInterpreter(animalCentre);
+            var engine = new Engine(commandInterpreter, animalCentre);
+            engine.Run();
+
         }
     }
 }

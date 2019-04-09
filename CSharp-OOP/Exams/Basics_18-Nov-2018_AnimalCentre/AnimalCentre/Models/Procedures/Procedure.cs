@@ -43,9 +43,11 @@
         {
             var historyInfo = new StringBuilder();
 
+            historyInfo.AppendLine(this.GetType().Name);
+
             foreach (var animal in this.ProcedureHistory)
             {
-                historyInfo.AppendLine($"{this.GetType().Name}\n\t- {animal.Name} - Happiness: {animal.Happiness} - Energy: {animal.Energy}");
+                historyInfo.AppendLine(animal.ToString());
             }
 
             return historyInfo.ToString().TrimEnd();
