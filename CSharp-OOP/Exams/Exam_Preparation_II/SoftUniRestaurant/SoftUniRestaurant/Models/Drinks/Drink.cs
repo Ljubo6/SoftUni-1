@@ -49,7 +49,7 @@
             {
                 if (value <= 0)
                 {
-                    throw new ArgumentException("Price cannot be less or equal to zero!");
+                    throw new ArgumentException("Price cannot be less or equal to zero");
                 }
                 this.price = value;
             }
@@ -61,7 +61,7 @@
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentException("Brahd cannot be null or white space!");
+                    throw new ArgumentException("Brand cannot be null or white space!");
                 }
                 this.brand = value;
             }
@@ -69,7 +69,7 @@
 
         public override string ToString()
         {
-            return $"{this.Name} {this.Brand} - {this.ServingSize}ml - {this.Price:f2}lv";
+            return $"{this.name} {this.brand} - {this.servingSize}ml - {this.price:f2}lv";
         }
     }
 }

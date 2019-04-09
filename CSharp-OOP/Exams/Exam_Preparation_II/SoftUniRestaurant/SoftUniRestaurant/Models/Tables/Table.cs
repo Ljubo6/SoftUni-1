@@ -10,22 +10,24 @@
 
     public abstract class Table : ITable
     {
-        private IList<IFood> FoodOrders;
-        private IList<IDrink> DrinkOrders;
+        private List<IFood> foodOrders;
+        private List<IDrink> drinkOrders;
         private int capacity;
         private int numberOfPeople;
+        private decimal pricePerPerson;
 
-        public Table(int tableNumber, int capacity, decimal pricePerPerson)
+        protected Table(int tableNumber, int capacity, decimal pricePerPerson)
         {
-            this.FoodOrders = new List<IFood>();
-            this.DrinkOrders = new List<IDrink>();
+            this.foodOrders = new List<IFood>();
+            this.drinkOrders = new List<IDrink>();
             this.TableNumber = tableNumber;
             this.Capacity = capacity;
-            this.PricePerPerson = pricePerPerson;
+            this.pricePerPerson = pricePerPerson;
             this.numberOfPeople = 0;
+            this.IsReserved = false;
         }
 
-        public int TableNumber { get; private set; }
+        public int TableNumber { get; }
 
         public int Capacity
         {
@@ -40,7 +42,7 @@
             }
         }
 
-        public int NumberOfPeople
+        private int NumberOfPeople
         {
             get => this.numberOfPeople;
             set
@@ -53,18 +55,16 @@
             }
         }
 
-        public decimal PricePerPerson { get; private set; }
+        public bool IsReserved { get; private set; }
 
-        public bool IsReserved { get; private set; } = false;
-
-        public decimal Price => this.FoodOrders.Sum(f => f.Price) 
-            + this.DrinkOrders.Sum(d => d.Price) 
-            + this.NumberOfPeople * this.PricePerPerson;
+        public decimal Price => this.foodOrders.Sum(f => f.Price) 
+            + this.drinkOrders.Sum(d => d.Price) 
+            + this.numberOfPeople * this.pricePerPerson;
 
         public void Clear()
         {
-            this.DrinkOrders.Clear();
-            this.FoodOrders.Clear();
+            this.drinkOrders.Clear();
+            this.foodOrders.Clear();
             this.IsReserved = false;
             this.numberOfPeople = 0;
         }
@@ -79,31 +79,31 @@
             var info = new StringBuilder();
             info.AppendLine($"Table: {this.TableNumber}");
             info.AppendLine($"Type: {this.GetType().Name}");
-            info.AppendLine($"Capacity: {this.Capacity}");
-            info.AppendLine($"Price per Person: {this.PricePerPerson}");
+            info.AppendLine($"Capacity: {this.capacity}");
+            info.AppendLine($"Price per Person: {this.pricePerPerson:f2}");
 
             return info.ToString().TrimEnd();
         }
 
         public string GetOccupiedTableInfo()
         {
-            var foodOrders = this.FoodOrders.Any() ? this.FoodOrders.Count.ToString() : "None";
-            var drinkOrders = this.DrinkOrders.Any() ? this.DrinkOrders.Count.ToString() : "None";
+            var foodOrders = this.foodOrders.Any() ? this.foodOrders.Count.ToString() : "None";
+            var drinkOrders = this.drinkOrders.Any() ? this.drinkOrders.Count.ToString() : "None";
 
             var info = new StringBuilder();
             info.AppendLine($"Table: {this.TableNumber}");
             info.AppendLine($"Type: {this.GetType().Name}");
-            info.AppendLine($"Number of people: {this.NumberOfPeople}");
+            info.AppendLine($"Number of people: {this.numberOfPeople}");
             info.AppendLine($"Food orders: {foodOrders}");
 
-            foreach (var food in this.FoodOrders)
+            foreach (var food in this.foodOrders)
             {
                 info.AppendLine(food.ToString());
             }
 
             info.AppendLine($"Drink orders: {drinkOrders}");
 
-            foreach (var drink in this.DrinkOrders)
+            foreach (var drink in this.drinkOrders)
             {
                 info.AppendLine(drink.ToString());
             }
@@ -113,12 +113,12 @@
 
         public void OrderDrink(IDrink drink)
         {
-            this.DrinkOrders.Add(drink);
+            this.drinkOrders.Add(drink);
         }
 
         public void OrderFood(IFood food)
         {
-            this.FoodOrders.Add(food);
+            this.foodOrders.Add(food);
         }
 
         public void Reserve(int numberOfPeople)

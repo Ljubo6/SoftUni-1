@@ -1,5 +1,6 @@
 ﻿namespace SoftUniRestaurant.Core
 {
+    using SoftUniRestaurant.Factories;
     using SoftUniRestaurant.Models.Drinks.Contracts;
     using SoftUniRestaurant.Models.Foods.Contracts;
     using SoftUniRestaurant.Models.Tables.Contracts;
@@ -14,6 +15,9 @@
         private List<IFood> menu;
         private List<IDrink> drinks;
         private List<ITable> tables;
+        private FoodFactory foodFactory;
+        private DrinkFactory drinkFactory;
+        private TableFactory tableFactory;
 
         private decimal totalIncome;
 
@@ -22,43 +26,29 @@
             this.menu = new List<IFood>();
             this.drinks = new List<IDrink>();
             this.tables = new List<ITable>();
+            this.foodFactory = new FoodFactory();
+            this.drinkFactory = new DrinkFactory();
+            this.tableFactory = new TableFactory();
         }
 
         public string AddFood(string type, string name, decimal price)
         {
-            var foodType = Assembly
-                .GetCallingAssembly()
-                .GetTypes()
-                .FirstOrDefault(t => t.Name == type);
-
-            var newFood = (IFood)Activator.CreateInstance(foodType, new object[] { name, price });
+            var newFood = this.foodFactory.CreateFood(type, name, price);
             this.menu.Add(newFood);
-
             return $"Added {name} ({newFood.GetType().Name}) with price {newFood.Price:f2} to the pool";
         }
 
         public string AddDrink(string type, string name, int servingSize, string brand)
         {
-            var drinkType = Assembly
-                .GetCallingAssembly()
-                .GetTypes()
-                .FirstOrDefault(t => t.Name == type);
-
-            var newDrink = (IDrink)Activator.CreateInstance(drinkType, new object[] { name, servingSize, brand });
+            var newDrink = this.drinkFactory.CreateFood(type, name, servingSize, brand);
             this.drinks.Add(newDrink);
 
             return $"Added {name} ({brand}) to the drink pool";
-
         }
 
         public string AddTable(string type, int tableNumber, int capacity)
         {
-            var tableType = Assembly
-                .GetCallingAssembly()
-                .GetTypes()
-                .FirstOrDefault(t => t.Name == type+"Table");
-
-            var newTable = (ITable)Activator.CreateInstance(tableType, new object[] { tableNumber, capacity });
+            var newTable = this.tableFactory.CreateTable(type, tableNumber, capacity);
             this.tables.Add(newTable);
 
             return $"Added table number {tableNumber} in the restaurant";

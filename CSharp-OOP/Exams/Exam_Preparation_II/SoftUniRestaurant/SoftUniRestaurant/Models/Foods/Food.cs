@@ -54,7 +54,7 @@
         }
         public override string ToString()
         {
-            return $"{this.Name}: {this.ServingSize}g - {this.Price:f2}";
+            return $"{this.name}: {this.servingSize}g - {this.price:f2}";
         }
     }
 }
