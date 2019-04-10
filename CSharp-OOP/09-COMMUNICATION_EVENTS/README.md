@@ -24,23 +24,17 @@ For each name change of the dispatcher the handler should print **&quot;** Dispa
 
 | **Input** | **Output** |
 | --- | --- |
-| Pesho
-Gosho
-Stefan
-End | Dispatcher&#39;s name changed to Pesho.
-Dispatcher&#39;s name changed to Gosho.
-Dispatcher&#39;s name changed to Stefan. |
-| Prakash
-Stamat
-Muad
-Dib
-Ivan
-Joro
-End | Dispatcher&#39;s name changed to Prakash.
-Dispatcher&#39;s name changed to Stamat.
-Dispatcher&#39;s name changed to MuadDib.
-Dispatcher&#39;s name changed to Ivan.
-Dispatcher&#39;s name changed to Joro. |
+| Pesho | Dispatcher&#39;s name changed to Pesho. |
+Gosho | Dispatcher&#39;s name changed to Gosho. |
+Stefan | Dispatcher&#39;s name changed to Stefan. |
+End | |
+|--- |--- |
+| Prakash | Dispatcher&#39;s name changed to Prakash.
+|Stamat | Dispatcher&#39;s name changed to Stamat.
+| MuadDib |Dispatcher&#39;s name changed to MuadDib.
+| Ivan | Dispatcher&#39;s name changed to Ivan.
+| Joro | Dispatcher&#39;s name changed to Joro.
+End | |
 
 ## Problem 2.King&#39;s Gambit
 
@@ -74,28 +68,22 @@ Whenever the king is attacked you should print on the console &quot; **King \<ki
 
 | **Input** | **Output** |
 | --- | --- |
-| Pesho
-Krivogled Ruboglav
-Gosho Pencho Stamat
-Attack King
-End | King Pesho is under attack!
-Royal Guard Krivogled is defending!
-Royal Guard Ruboglav is defending!
-Footman Gosho is panicking!
-Footman Pencho is panicking!
-Footman Stamat is panicking! |
-| HenryVIII
-Thomas Oliver
-Mark
-Kill Oliver
-Attack King
-Kill Thomas
-Kill Mark
-Attack King
-End | King HenryVIII is under attack!
-Royal Guard Thomas is defending!
-Footman Mark is panicking!
-King HenryVIII is under attack! |
+| Pesho | King Pesho is under attack! |
+|Krivogled Ruboglav | Royal Guard Krivogled is defending! |
+|Gosho Pencho Stamat | Royal Guard Ruboglav is defending! |
+|Attack King | Footman Gosho is panicking! |
+|End | Footman Pencho is panicking! |
+| | Footman Stamat is panicking! |
+| --- | --- |
+| HenryVIII | King HenryVIII is under attack!
+|Thomas Oliver | King HenryVIII is under attack!
+|Mark | Royal Guard Thomas is defending!
+|Kill Oliver | Footman Mark is panicking!
+|Attack King | King HenryVIII is under attack! |
+|Kill Thomas |
+|Kill Mark |
+|Attack King |
+|End | 
 
 ## Problem 3.Dependency Inversion
 
@@ -134,32 +122,25 @@ Print the results of the calculation of all number lines - each result on a new 
 
 | **Input** | **Output** |
 | --- | --- |
-| 10 15
-mode /
-20 5
-17 7
-mode -
-30 31
-End | 25
-4
-2-
-1 |
+| 10 15 | 25
+| mode / | 
+|20 5 | 4
+|17 7 | 2
+|mode - | 
+|30 31 | -1
+|End |  |
+| --- | --- |
 | mode \*
-1 1
-3 21
--5 -6
-mode -
--30 -50
-mode /
--28 4
-mode +
-1 10
-End | 1
-63
-30
-20
--7
-11 |
+|1 1 | 1
+|3 21 | 63
+|-5 -6 | 30
+|mode - |
+|-30 -50 | 20
+|mode / |
+|-28 4 | -7
+|mode + |
+|1 10 | 11
+|End |  |
 
 ## Problem 4.Work Force
 
@@ -191,29 +172,26 @@ Every time a job ends the message **&quot;Job \<jobName\> done!&quot;** should b
 
 | **Input** | **Output** |
 | --- | --- |
-| StandardEmployee Pesho
-PartTimeEmployee Penka
-Job FeedTheFishes 45 Pesho
-Pass Week
-Status
-Pass Week
-End | Job: FeedTheFishes Hours Remaining: 5
-Job FeedTheFishes done! |
-| PartTimeEmployee Penka
-PartTimeEmployee Vanka
-PartTimeEmployee Stanka
-Job Something 177 Stanka
-Pass Week
-Job AnotherThing 33 Vanka
-Status
-Pass Week
-Pass Week
-Pass Week
-Status
-End | Job: Something Hours Remaining: 157
-Job: AnotherThing Hours Remaining: 33
-Job AnotherThing done!
-Job: Something Hours Remaining: 97 |
+| StandardEmployee Pesho | Job: FeedTheFishes Hours Remaining: 5
+|PartTimeEmployee Penka | Job FeedTheFishes done! |
+|Job FeedTheFishes 45 Pesho |
+|Pass Week |
+|Status |
+|Pass Week |
+|End |  |
+| --- | --- |
+| PartTimeEmployee Penka | Job: Something Hours Remaining: 157
+|PartTimeEmployee Vanka | Job: AnotherThing Hours Remaining: 33
+|PartTimeEmployee Stanka | Job AnotherThing done!
+|Job Something 177 Stanka | Job: Something Hours Remaining: 97 |
+|Pass Week
+|Job AnotherThing 33 Vanka
+|Status
+|Pass Week
+|Pass Week
+|Pass Week
+|Status
+|End | 
 
 ### Hint
 
