@@ -1,8 +1,10 @@
 ﻿namespace P03.DependencyInversion
 {
+    using P03.DependencyInversion.Strategies;
+
     public class PrimitiveCalculator
     {
-        private string strategy;
+        private IStrategy strategy;
         private AdditionStrategy additionStrategy;
         private SubtractionStrategy subtractionStrategy;
         private MultiplicationStrategy multiplicationStrategy;
@@ -10,11 +12,7 @@
 
         public PrimitiveCalculator()
         {
-            this.additionStrategy = new AdditionStrategy();
-            this.subtractionStrategy = new SubtractionStrategy();
-            this.multiplicationStrategy = new MultiplicationStrategy();
-            this.divisionStrategy = new DivisionStrategy();
-            this.strategy = "Addition";
+            this.strategy = new AdditionStrategy();
         }
 
         public void ChangeStrategy(char @operator)
@@ -22,16 +20,16 @@
             switch (@operator)
             {
                 case '+':
-                    this.strategy = "Addition";
+                    this.strategy = new AdditionStrategy();
                     break;
                 case '-':
-                    this.strategy = "Substraction";
+                    this.strategy = new SubtractionStrategy();
                     break;
                 case '*':
-                    this.strategy = "Multiplication";
+                    this.strategy = new MultiplicationStrategy();
                     break;
                 case '/':
-                    this.strategy = "Division";
+                    this.strategy = new DivisionStrategy();
                     break;
                 default:
                     break;
@@ -40,19 +38,7 @@
 
         public int PerformCalculation(int firstOperand, int secondOperand)
         {
-            switch (this.strategy)
-            {
-                case "Addition":
-                    return additionStrategy.Calculate(firstOperand, secondOperand);
-                case "Substraction":
-                    return subtractionStrategy.Calculate(firstOperand, secondOperand);
-                case "Multiplication":
-                    return multiplicationStrategy.Calculate(firstOperand, secondOperand);
-                case "Division":
-                    return divisionStrategy.Calculate(firstOperand, secondOperand);
-                default:
-                    return 0;
-            }
+            return strategy.Calculate(firstOperand, secondOperand);
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿namespace P03.DependencyInversion
+﻿namespace P03.DependencyInversion.Strategies
 {
-    public class DivisionStrategy
+    public class DivisionStrategy : IStrategy
     {
         public int Calculate(int firstOperand, int secondOperand)
         {
