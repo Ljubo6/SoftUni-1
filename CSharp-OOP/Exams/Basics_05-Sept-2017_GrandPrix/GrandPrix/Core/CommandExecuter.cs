@@ -1,39 +1,52 @@
-﻿using System.Linq;
+﻿using GrandPrix.CustomExceptions;
+using System;
+using System.Linq;
 
-namespace GrandPrix.Core
+public class CommandExecuter
 {
-    public class CommandExecuter
+    private RaceTower raceTower;
+
+    public CommandExecuter(RaceTower raceTower)
     {
-        private RaceTower raceTower;
+        this.raceTower = raceTower;
+    }
 
-        public CommandExecuter (RaceTower raceTower)
+    public void Execute(string[] input)
+    {
+        var commandInput = input[0];
+        var args = input.Skip(1).ToList();
+
+        switch (commandInput)
         {
-            this.raceTower = raceTower;
-        }
+            case "RegisterDriver":
+                this.raceTower.RegisterDriver(args);
+                break;
+            case "Leaderboard":
+                Console.WriteLine(this.raceTower.GetLeaderboard());
+                break;
+            case "CompleteLaps":
+                try
+                {
+                    var output = this.raceTower.CompleteLaps(args);
 
-        public string Execute(string[] input)
-        {
-            var commandInput = input[0];
-            var args = input.Skip(1).ToList();
-
-            switch (commandInput)
-            {
-                case "RegisterDriver":
-                    this.raceTower.RegisterDriver(args);
-                    return null;
-                case "Leaderboard":
-                    return this.raceTower.GetLeaderboard();
-                case "CompleteLaps":
-                    return this.raceTower.CompleteLaps(args);
-                case "Box":
-                    this.raceTower.DriverBoxes(args);
-                    return null;
-                case "ChangeWeather":
-                    this.raceTower.ChangeWeather(args);
-                    return null;
-                default:
-                    return null;
-            }
+                    if(output != null)
+                    {
+                        Console.WriteLine(output);
+                    }
+                }
+                catch (WrongLapCountException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                break;
+            case "Box":
+                this.raceTower.DriverBoxes(args);
+                break;
+            case "ChangeWeather":
+                this.raceTower.ChangeWeather(args);
+                break;
+            default:
+                break;
         }
     }
 }

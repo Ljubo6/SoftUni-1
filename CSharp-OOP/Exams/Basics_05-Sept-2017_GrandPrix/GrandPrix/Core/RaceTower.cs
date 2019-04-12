@@ -1,5 +1,4 @@
-﻿using GrandPrix.Core.Factories;
-using GrandPrix.CustomExceptions;
+﻿using GrandPrix.CustomExceptions;
 using GrandPrix.Enums;
 using System;
 using System.Collections.Generic;
@@ -16,14 +15,14 @@ public class RaceTower : IRaceTower
     private TyreFactory tyreFactory;
     private DriverFactory driverFactory;
 
-    private Dictionary<string, Driver> competingDrivers;
+    private List<Driver> competingDrivers;
     private List<Driver> failedDrivers;
 
     public RaceTower()
     {
         this.tyreFactory = new TyreFactory();
         this.driverFactory = new DriverFactory();
-        this.competingDrivers = new Dictionary<string, Driver>();
+        this.competingDrivers = new List<Driver>();
         this.failedDrivers = new List<Driver>();
         this.weather = Weather.Sunny;
     }
@@ -36,30 +35,22 @@ public class RaceTower : IRaceTower
 
     public void RegisterDriver(List<string> commandArgs)
     {
-        Driver driver;
-        Car car;
-        Tyre tyre;
-
-        string driverType = commandArgs[0];
-        string driverName = commandArgs[1];
-        int carHp = int.Parse(commandArgs[2]);
-        double carFuelAmount = double.Parse(commandArgs[3]);
-        string tyreType = commandArgs[4];
-        double tyreHardness = double.Parse(commandArgs[5]);
-
-        if (commandArgs.Count == 7)
+        try
         {
-            double grip = double.Parse(commandArgs[6]);
-            tyre = tyreFactory.CreateTyre(tyreType, tyreHardness, grip);
-        }
-        else
-        {
-            tyre = tyreFactory.CreateTyre(tyreType, tyreHardness);
-        }
+            string[] tyreArgs = commandArgs.Skip(4).ToArray();
+            Tyre tyre = tyreFactory.CreateTyre(tyreArgs);
 
-        car = new Car(carHp, carFuelAmount, tyre);
-        driver = driverFactory.CreateDriver(driverType, driverName, car);
-        this.competingDrivers.Add(driverName, driver);
+            int carHp = int.Parse(commandArgs[2]);
+            double carFuelAmount = double.Parse(commandArgs[3]);
+            Car car = new Car(carHp, carFuelAmount, tyre);
+
+            string driverType = commandArgs[0];
+            string driverName = commandArgs[1];
+            Driver driver = driverFactory.CreateDriver(driverType, driverName, car);
+
+            this.competingDrivers.Add(driver);
+        }
+        catch { }
     }
 
     public void DriverBoxes(List<string> commandArgs)
@@ -67,12 +58,6 @@ public class RaceTower : IRaceTower
         var reason = commandArgs[0];
         string driverName = commandArgs[1];
         var driver = this.GetDriver(driverName);
-
-        if (driver == null)
-        {
-            return;
-        }
-
         driver.IncreaseTotalTime(20);
 
         if (reason == "Refuel")
@@ -82,23 +67,10 @@ public class RaceTower : IRaceTower
         }
         else if (reason == "ChangeTyres")
         {
-            Tyre newTyre;
-            string type = commandArgs[2];
-            var tyreHardness = double.Parse(commandArgs[3]);
-
-            if (type == "UltraSoft")
-            {
-                var grip = double.Parse(commandArgs[4]);
-                newTyre = tyreFactory.CreateTyre(type, tyreHardness, grip);
-            }
-            else
-            {
-                newTyre = tyreFactory.CreateTyre(type, tyreHardness);
-            }
-
+            string[] newTyreArgs = commandArgs.Skip(2).ToArray();
+            Tyre newTyre = tyreFactory.CreateTyre(newTyreArgs);
             driver.Car.ChangeTyre(newTyre);
         }
-
     }
 
     public string CompleteLaps(List<string> commandArgs)
@@ -109,17 +81,15 @@ public class RaceTower : IRaceTower
 
         if (totalLaps - currentLap < numberOfLaps)
         {
-            return $"There is no time! On lap {currentLap}.";
+            throw new WrongLapCountException($"There is no time! On lap {currentLap}.");
         }
-
-
 
         for (int i = 0; i < numberOfLaps; i++)
         {
-            List<Driver> toDisqualifyTyre = new List<Driver>();
-            List<Driver> toDisqualifyFuel = new List<Driver>();
+            List<Driver> driversWithBlownTyre = new List<Driver>();
+            List<Driver> driversWithoutFuel = new List<Driver>();
 
-            foreach (var driver in this.competingDrivers.Values)
+            foreach (var driver in this.competingDrivers)
             {
                 var currentLapTime = 60 / (trackLength / driver.Speed);
                 driver.IncreaseTotalTime(currentLapTime);
@@ -130,86 +100,101 @@ public class RaceTower : IRaceTower
                 }
                 catch (OutOfFuelException)
                 {
-                    toDisqualifyFuel.Add(driver);
+                    driversWithoutFuel.Add(driver);
                 }
                 catch (BlownTyreException)
                 {
-                    toDisqualifyTyre.Add(driver);
+                    driversWithBlownTyre.Add(driver);
                 }
             }
 
-            foreach (var driver in toDisqualifyFuel)
+            foreach (var driver in driversWithoutFuel)
             {
-                this.DisqualifyDriver(driver, "Out of fuel");
+                this.DisqualifyDriver(driver, ErrorMessages.OutOfFuel);
             }
 
-            foreach (var driver in toDisqualifyTyre)
+            foreach (var driver in driversWithBlownTyre)
             {
-                this.DisqualifyDriver(driver, "Blown Tyre");
+                this.DisqualifyDriver(driver, ErrorMessages.BlownTyre);
             }
 
             this.currentLap++;
 
-            var overtakingHelperCollection = this.competingDrivers.Values.OrderByDescending(d => d.TotalTime).Reverse().Select(d => d.Name).ToArray();
+            var overtakingHelperCollection = this.competingDrivers
+                .OrderByDescending(d => d.TotalTime)
+                .Reverse()
+                .ToList();
 
-            for (int j = overtakingHelperCollection.Length - 1; j >= 1; j--)
+            for (int j = overtakingHelperCollection.Count - 1; j >= 1; j--)
             {
-                var overtakingName = overtakingHelperCollection[j];
-                var overtakenName = overtakingHelperCollection[j - 1];
+                var overtakingDriver = overtakingHelperCollection[j];
+                var overtakenDriver = overtakingHelperCollection[j - 1];
 
-                var overtakingDriver = this.competingDrivers[overtakingName];
-                var overtakenDriver = this.competingDrivers[overtakenName];
-
-                if (overtakingDriver is AggressiveDriver
-                    && overtakingDriver.Car.Tyre is UltrasoftTyre
-                    && overtakingDriver.TotalTime - overtakenDriver.TotalTime <= 3)
+                if (OvertakingAttempt(overtakingDriver, overtakenDriver))
                 {
-                    if (this.weather == Weather.Foggy)
-                    {
-                        this.DisqualifyDriver(overtakingDriver, "Crashed");
-                    }
-                    else
-                    {
-                        overtakingDriver.DecreaseTotalTime(3);
-                        overtakenDriver.IncreaseTotalTime(3);
-                        output = $"{overtakingName} has overtaken {overtakenName} on lap {this.currentLap}.";
-                    }
+                    output = $"{overtakingDriver.Name} has overtaken {overtakenDriver.Name} on lap {this.currentLap}.";
+                    j--;
                 }
-
-                else if (overtakingDriver is EnduranceDriver
-                    && overtakingDriver.Car.Tyre is HardTyre
-                    && overtakingDriver.TotalTime - overtakenDriver.TotalTime <= 3)
+                else if(overtakingDriver.FailureReason == "Crashed")
                 {
-                    if (this.weather == Weather.Rainy)
-                    {
-                        this.DisqualifyDriver(overtakingDriver, "Crashed");
-                    }
-                    else
-                    {
-                        overtakingDriver.DecreaseTotalTime(3);
-                        overtakenDriver.IncreaseTotalTime(3);
-                        output = $"{overtakingName} has overtaken {overtakenName} on lap {this.currentLap}.";
-                    }
+                    overtakingHelperCollection.RemoveAt(j);
+                    j++;
                 }
-
-                else if (overtakingDriver.TotalTime - overtakenDriver.TotalTime <= 2)
-                {
-                    overtakingDriver.DecreaseTotalTime(2);
-                    overtakenDriver.IncreaseTotalTime(2);
-                    output = $"{overtakingName} has overtaken {overtakenName} on lap {this.currentLap}.";
-                }
-                j--;
             }
         }
         return output;
     }
 
+    private bool OvertakingAttempt(Driver overtakingDriver, Driver overtakenDriver)
+    {
+        double timeDifference = overtakingDriver.TotalTime - overtakenDriver.TotalTime;
+
+        bool aggressiveDriver = overtakingDriver is AggressiveDriver
+                    && overtakingDriver.Car.Tyre is UltrasoftTyre;
+                 
+        bool enduranceDriver = overtakingDriver is EnduranceDriver
+                    && overtakingDriver.Car.Tyre is HardTyre;
+
+
+        if (aggressiveDriver && timeDifference <= 3)
+        {
+            if(this.weather == Weather.Foggy)
+            {
+                this.DisqualifyDriver(overtakingDriver, ErrorMessages.Crashed);
+                return false;
+            }
+
+            overtakingDriver.DecreaseTotalTime(3);
+            overtakenDriver.IncreaseTotalTime(3);
+            return true;
+        }
+        else if(enduranceDriver && timeDifference <= 3)
+        {
+            if (this.weather == Weather.Rainy)
+            {
+                this.DisqualifyDriver(overtakingDriver, ErrorMessages.Crashed);
+                return false;
+            }
+
+            overtakingDriver.DecreaseTotalTime(3);
+            overtakenDriver.IncreaseTotalTime(3);
+            return true;
+        }
+        else if(timeDifference <= 2)
+        {
+            overtakingDriver.DecreaseTotalTime(2);
+            overtakenDriver.IncreaseTotalTime(2);
+            return true;
+        }
+
+        return false;
+    }
+
     private void DisqualifyDriver(Driver driver, string failureReason)
     {
-        string driverName = driver.Name;
         driver.FailureReason = failureReason;
         this.failedDrivers.Add(driver);
-        this.competingDrivers.Remove(driverName);
+        this.competingDrivers.Remove(driver);
     }
 
     public string GetLeaderboard()
@@ -218,7 +203,7 @@ public class RaceTower : IRaceTower
         info.AppendLine($"Lap {this.currentLap}/{this.totalLaps}");
 
         int position = 1;
-        foreach (var driver in this.competingDrivers.Values.OrderBy(d => d.TotalTime))
+        foreach (var driver in this.competingDrivers.OrderBy(d => d.TotalTime))
         {
             info.AppendLine($"{position++} {driver.Name} {driver.TotalTime:f3}");
         }
@@ -245,19 +230,14 @@ public class RaceTower : IRaceTower
 
     public string PrintWinner()
     {
-        Driver winner = this.competingDrivers.Values.OrderBy(d => d.TotalTime).First();
+        Driver winner = this.competingDrivers.OrderBy(d => d.TotalTime).First();
 
         return $"{winner.Name} wins the race for {winner.TotalTime:f3} seconds.";
     }
 
     private Driver GetDriver(string driverName)
     {
-        if (!this.competingDrivers.ContainsKey(driverName))
-        {
-            return null;
-        }
-
-        return this.competingDrivers[driverName];
+        return this.competingDrivers.FirstOrDefault(d => d.Name == driverName);
     }
 
 }

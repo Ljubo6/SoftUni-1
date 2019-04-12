@@ -33,12 +33,7 @@ namespace GrandPrix.Core
                 }
 
                 var input = Console.ReadLine().Split();
-                var result = commandExecuter.Execute(input);
-
-                if(result != null)
-                {
-                    Console.WriteLine(result);
-                }
+                commandExecuter.Execute(input);
             }
         }
     }

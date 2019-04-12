@@ -3,9 +3,7 @@ using System;
 
 public class Car : ICar
 {
-    private int hp;
     private double fuelAmount;
-    private Tyre tyre;
     private const double MaxCapacity = 160;
 
     public Car(int hp, double fuelAmount, Tyre tyre)
@@ -15,18 +13,7 @@ public class Car : ICar
         this.Tyre = tyre;
     }
 
-    public int Hp
-    {
-        get => this.hp;
-        private set
-        {
-            if (value <= 0)
-            {
-                throw new ArgumentException("HP cannot be zero or less!");
-            }
-            this.hp = value;
-        }
-    }
+    public int Hp { get; }
 
     public double FuelAmount
     {
@@ -37,23 +24,16 @@ public class Car : ICar
         }
     }
 
-    public Tyre Tyre
-    {
-        get => this.tyre;
-        private set
-        {
-            this.tyre = value ?? throw new ArgumentException("Tyre cannot be null!");
-        }
-    }
-
+    public Tyre Tyre { get; private set; }
+    
     public void Refuel(double fuel)
     {
         this.FuelAmount += fuel;
     }
 
-    public void ChangeTyre(Tyre tyre)
+    public void ChangeTyre(Tyre newTyre)
     {
-        this.tyre = tyre;
+        this.Tyre = newTyre;
     }
 
     public void ReduceFuel(double fuelBurnt)
@@ -61,7 +41,7 @@ public class Car : ICar
         this.fuelAmount -= fuelBurnt;
         if (this.fuelAmount < 0)
         {
-            throw new OutOfFuelException("Driver cannot continue the race!");
+            throw new OutOfFuelException(ErrorMessages.OutOfFuel);
         }
     }
 }
