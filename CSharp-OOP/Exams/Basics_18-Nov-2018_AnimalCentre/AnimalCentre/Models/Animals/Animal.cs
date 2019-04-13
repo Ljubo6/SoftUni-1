@@ -14,6 +14,10 @@
             this.Energy = energy;
             this.Happiness = happiness;
             this.ProcedureTime = procedureTime;
+            this.Owner = "Centre";
+            this.IsAdopt = false;
+            this.IsChipped = false;
+            this.IsVaccinated = false;
         }
 
         public string Name { get; private set; }
@@ -48,12 +52,12 @@
 
         public int ProcedureTime { get; set; }
 
-        public string Owner { get; set; } = "Centre";
+        public string Owner { get; set; } 
 
-        public bool IsAdopt { get; set; } = false;
+        public bool IsAdopt { get; set; } 
 
-        public bool IsChipped { get; set; } = false;
+        public bool IsChipped { get; set; } 
 
-        public bool IsVaccinated { get; set; } = false;
+        public bool IsVaccinated { get; set; } 
     }
 }

@@ -3,6 +3,7 @@
     using AnimalCentre.Models.Contracts;
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
 
     public class Hotel : IHotel
     {
@@ -14,7 +15,7 @@
             this.hotel = new Dictionary<string, IAnimal>();
         }
 
-        public IReadOnlyDictionary<string, IAnimal> Animals => this.hotel;
+        public IReadOnlyDictionary<string, IAnimal> Animals => new ReadOnlyDictionary<string, IAnimal>(this.hotel);
 
         public void Accommodate(IAnimal animal)
         {

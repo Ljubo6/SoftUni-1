@@ -1,5 +1,4 @@
 ﻿using AnimalCentre.Factories;
-using AnimalCentre.Models.Animals;
 using AnimalCentre.Models.Contracts;
 using AnimalCentre.Models.Hotels;
 using AnimalCentre.Models.Procedures;
@@ -35,7 +34,6 @@ namespace AnimalCentre.Core
             }
 
             hotel.Accommodate(newAnimal);
-            //this.animals.Add(newAnimal);
             return $"Animal {name} registered successfully";
         }
 
