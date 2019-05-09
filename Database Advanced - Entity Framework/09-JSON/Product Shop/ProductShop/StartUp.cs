@@ -19,7 +19,7 @@ namespace ProductShop
             using (var context = new ProductShopContext())
             {
                 context.Database.EnsureCreated();
-                var output = GetCategoriesByProductsCount(context);
+                var output = GetUsersWithProducts(context);
                 Console.WriteLine(output);
             }
         }
@@ -27,7 +27,35 @@ namespace ProductShop
         //P08. Export Users and Products
         public static string GetUsersWithProducts(ProductShopContext context)
         {
-            return string.Empty;
+            var users = new
+            {
+                userCount = context.Users.Count(),
+                users = context.Users
+               .OrderByDescending(u => u.ProductsSold.Count)
+               .ThenBy(u => u.LastName)
+               .Where(u => u.ProductsSold.Count > 0 && u.ProductsSold.Any(ps => ps.Buyer != null))
+               .Select(u => new
+               {
+                   firstName = u.FirstName,
+                   lastName = u.LastName,
+                   age = u.Age,
+                   soldProducts = new
+                   {
+                       count = u.ProductsSold.Count,
+                       products = u.ProductsSold
+                                                   .Select(p => new
+                                                   {
+                                                       name = p.Name,
+                                                       price = p.Price
+                                                   })
+                                                   .ToList()
+                   }
+               })
+               .ToList()
+            };
+
+            var jsonString = JsonConvert.SerializeObject(users, Formatting.Indented, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+            return jsonString;
         }
 
 
