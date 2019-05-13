@@ -39,10 +39,29 @@
 
             modelBuilder.Entity<Part>(e =>
             {
+                e.HasMany(p => p.PartCars)
+                .WithOne(pc => pc.Part)
+                .HasForeignKey(p => p.PartId)
+                .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            modelBuilder.Entity<Car>(e =>
+            {
+                e.HasMany(c => c.PartCars)
+                .WithOne(pc => pc.Car)
+                .HasForeignKey(c => c.CarId)
+                .OnDelete(DeleteBehavior.Restrict);
+            });
+
+
+            modelBuilder.Entity<Part>(e =>
+            {
                 e.HasOne(p => p.Supplier)
                 .WithMany(s => s.Parts)
                 .HasForeignKey(p => p.SupplierId);
             });
+
+            
         }
     }
 }

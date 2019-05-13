@@ -1,7 +1,7 @@
-﻿
-namespace CarDealer.Models
+﻿namespace CarDealer.Models
 {
     using System.Collections.Generic;
+    using System.Xml.Serialization;
 
     public class Part
     {
