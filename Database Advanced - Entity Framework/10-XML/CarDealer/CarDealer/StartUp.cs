@@ -34,15 +34,35 @@
             var customersInputXml = File.ReadAllText(@"..\..\..\Datasets\customers.xml");
             var salesInputXml = File.ReadAllText(@"..\..\..\Datasets\sales.xml");
 
-            var output = GetTotalSalesByCustomer(context);
+            var output = GetSalesWithAppliedDiscount(context);
             Console.WriteLine(output);
         }
 
         //P11. Sales with Applied Discount
         public static string GetSalesWithAppliedDiscount(CarDealerContext context)
         {
-            //TODO
-            return string.Empty;
+            var exportSaleSDtos = context.Sales
+                .Select(s => new ExportSaleDTO
+                {
+                    Car = new ExportSaleCarDTO
+                    {
+                        Make = s.Car.Make,
+                        Model = s.Car.Model,
+                        TravelledDistance = s.Car.TravelledDistance
+                    },
+                    CustomerName = s.Customer.Name,
+                    Discount = s.Discount,
+                    Price = s.Car.PartCars.Sum(p => p.Part.Price),
+                    PriceWithDiscount = s.Car.PartCars.Sum(p => p.Part.Price) * (1m - s.Discount/100m)
+                })
+                .ToArray();
+
+            var xmlSerializer = new XmlSerializer(typeof(ExportSaleDTO[]), new XmlRootAttribute("sales"));
+            var result = new StringBuilder();
+
+            xmlSerializer.Serialize(new StringWriter(result), exportSaleSDtos, namespaces);
+
+            return result.ToString().TrimEnd();
         }
 
         //P10. Total Sales by Customer
