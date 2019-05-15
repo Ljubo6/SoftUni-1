@@ -34,7 +34,6 @@ namespace SIS.HTTP.Responses
 
         public byte[] GetBytes()
         {
-            //TODO
             var headerBytes = Encoding.UTF8.GetBytes(this.ToString());
             var bodyBytes = new byte[headerBytes.Length + this.Content.Length];
 
@@ -59,6 +58,8 @@ namespace SIS.HTTP.Responses
                   .Append(GlobalConstants.HttpNewLine)
                   .Append($"{this.Headers.ToString()}")
                   .Append(GlobalConstants.HttpNewLine);
+
+            result.Append(GlobalConstants.HttpNewLine);
 
             return result.ToString();
         }
