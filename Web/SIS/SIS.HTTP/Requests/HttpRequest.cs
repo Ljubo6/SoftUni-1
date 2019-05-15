@@ -118,7 +118,7 @@
                 return;
             }
 
-            var queryString = this.Url.Split('?')[1];
+            var queryString = this.Url.Split('?', '#')[1];
 
             if (!this.IsValidRequestQueryString(queryString))
             {
