@@ -1,12 +1,12 @@
-﻿using SIS.WebServer.Routing.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Net.Sockets;
-using System.Text;
-
-namespace SIS.WebServer
+﻿namespace SIS.WebServer
 {
+    using Routing.Contracts;
+
+    using System;
+    using System.Net;
+    using System.Net.Sockets;
+    using System.Threading.Tasks;
+
     public class Server
     {
         private const string LocalhostIpAddress = "127.0.0.1";
@@ -37,16 +37,16 @@ namespace SIS.WebServer
             {
                 Console.WriteLine("Waiting for a client...");
 
-                Socket client = tcpListener.AcceptSocket();
+                Socket client = tcpListener.AcceptSocketAsync().GetAwaiter().GetResult();
 
-                this.Listen(client);
+                Task.Run(() => this.Listen(client));
             }
         }
 
-        public void Listen(Socket client)
+        public async Task Listen(Socket client)
         {
             var connectionHandler = new ConnectionHandler(client, this.serverRoutingTable);
-            connectionHandler.ProcessRequest();
+            await connectionHandler.ProcessRequestAsync();
         }
     }
 }
