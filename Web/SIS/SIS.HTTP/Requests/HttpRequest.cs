@@ -1,12 +1,15 @@
 ﻿namespace SIS.HTTP.Requests
 {
     using SIS.HTTP.Common;
+    using SIS.HTTP.Cookies;
+    using SIS.HTTP.Cookies.Contracts;
     using SIS.HTTP.Enums;
     using SIS.HTTP.Exceptions;
     using SIS.HTTP.Extentions;
     using SIS.HTTP.Headers;
     using SIS.HTTP.Headers.Contracts;
     using SIS.HTTP.Requests.Contracts;
+    using SIS.HTTP.Sessions.Contracts;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -20,6 +23,7 @@
             this.FormData = new Dictionary<string, object>();
             this.QueryData = new Dictionary<string, object>();
             this.Headers = new HttpHeaderCollection();
+            this.Cookies = new HttpCookieCollection();
 
             this.ParseRequest(requestString);
         }
@@ -36,6 +40,10 @@
 
         public HttpRequestMethod RequestMethod { get; private set; }
 
+        public IHttpCookieCollection Cookies { get; }
+
+        public IHttpSession Session { get; set; }
+
         private void ParseRequest(string requestString)
         {
             string[] splitRequestLines = requestString.Split(GlobalConstants.HttpNewLine, StringSplitOptions.None);
@@ -51,10 +59,27 @@
             this.ParseRequestPath();
 
             this.ParseRequestHeaders(splitRequestLines.Skip(1).ToArray());
-            //this.ParseCookies();
+            this.ParseCookies();
 
             this.ParseQueryParameters();
             this.ParseRequestFormDataParameters(splitRequestLines.Last());
+        }
+
+        private void ParseCookies()
+        {
+            if (this.Headers.ContainsHeader("Cookie"))
+            {
+                string cookieHeaderString = this.Headers.GetHeader("Cookie").Value;
+                string[] unparsedCookies = cookieHeaderString.Split("; ");
+                foreach (var cookie in unparsedCookies)
+                {
+                    var cookieElements = cookie.Split('=');
+                    var key = cookieElements[0];
+                    var value = cookieElements[1];
+                    var newCookie = new HttpCookie(key, value);
+                    this.Cookies.AddCookie(newCookie);
+                }
+            }
         }
 
         private void ParseRequestFormDataParameters(string requestBody)
