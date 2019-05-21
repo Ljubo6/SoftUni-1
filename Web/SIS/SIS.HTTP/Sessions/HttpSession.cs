@@ -18,6 +18,8 @@
 
         public void AddParameter(string name, object parameter)
         {
+            CoreValidator.ThrowIfNullOrEmpty(name, nameof(name));
+            CoreValidator.ThrowIfNull(parameter, nameof(parameter));
             if (!this.ContainsParameter(name))
             {
                 this.parameters.Add(name, parameter);
@@ -31,11 +33,13 @@
 
         public bool ContainsParameter(string name)
         {
+            CoreValidator.ThrowIfNullOrEmpty(name, nameof(name));
             return this.parameters.ContainsKey(name);
         }
 
         public object GetParameter(string name)
         {
+            CoreValidator.ThrowIfNullOrEmpty(name, nameof(name));
             if (!this.ContainsParameter(name))
             {
                 return null;
