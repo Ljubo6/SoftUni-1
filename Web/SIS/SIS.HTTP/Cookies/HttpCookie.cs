@@ -35,7 +35,7 @@
         public DateTime Expires { get; private set; }
         public string Path { get; set; }
         public bool IsNew { get; }
-        public bool HttpOnly { get; set; } //= true;
+        public bool HttpOnly { get; set; } = true;
         public void Delete()
         {
             this.Expires = DateTime.UtcNow.AddDays(-1);
@@ -44,7 +44,7 @@
         {
             var sb = new StringBuilder();
 
-            sb.Append($"{this.Key}={this.Value}; Expires={this.Expires:R}; {this.Path}");
+            sb.Append($"{this.Key}={this.Value}; Expires={this.Expires:R}; Path={this.Path}");
             if (HttpOnly)
             {
                 sb.Append("; HttpOnly");

@@ -70,13 +70,13 @@
             if (this.Headers.ContainsHeader("Cookie"))
             {
                 string cookieHeaderString = this.Headers.GetHeader("Cookie").Value;
-                string[] unparsedCookies = cookieHeaderString.Split("; ");
+                string[] unparsedCookies = cookieHeaderString.Split("; ", StringSplitOptions.RemoveEmptyEntries);
                 foreach (var cookie in unparsedCookies)
                 {
                     var cookieElements = cookie.Split('=');
                     var key = cookieElements[0];
                     var value = cookieElements[1];
-                    var newCookie = new HttpCookie(key, value);
+                    var newCookie = new HttpCookie(key, value, false);
                     this.Cookies.AddCookie(newCookie);
                 }
             }

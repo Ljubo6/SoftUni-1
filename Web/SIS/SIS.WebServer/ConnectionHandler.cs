@@ -10,7 +10,7 @@
     using SIS.HTTP.Requests.Contracts;
     using SIS.HTTP.Responses;
     using SIS.HTTP.Responses.Contracts;
-    using SIS.HTTP.Sessions;
+    using SIS.WebServer.Sessions;
     using SIS.WebServer.Results;
 
     using System;
@@ -126,7 +126,7 @@
 
             httpRequest.Session = HttpSessionStorage.GetSession(sessionId);
 
-            return sessionId;
+            return httpRequest.Session.Id;
         }
 
         private void SetResponseSession(IHttpResponse httpResponse, string sessionId)

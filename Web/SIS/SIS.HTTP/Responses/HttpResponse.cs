@@ -26,8 +26,8 @@
         }
 
         public HttpResponseStatusCode StatusCode { get; set; }
-        public IHttpHeaderCollection Headers { get; set; }
-        public IHttpCookieCollection Cookies { get; set; }
+        public IHttpHeaderCollection Headers { get; }
+        public IHttpCookieCollection Cookies { get; }
         public byte[] Content { get; set; }
 
         public void AddHeader(HttpHeader header)
@@ -56,6 +56,7 @@
 
         public void AddCookie(HttpCookie cookie)
         {
+            CoreValidator.ThrowIfNull(cookie, nameof(cookie));
             this.Cookies.AddCookie(cookie);
         }
 
@@ -70,7 +71,7 @@
 
             if (this.Cookies.HasCookies())
             {
-                result.Append($"Set-Cookie: {this.Cookies}").Append(GlobalConstants.HttpNewLine);
+                result.Append($"{this.Cookies}").Append(GlobalConstants.HttpNewLine);
             }
 
             result.Append(GlobalConstants.HttpNewLine);

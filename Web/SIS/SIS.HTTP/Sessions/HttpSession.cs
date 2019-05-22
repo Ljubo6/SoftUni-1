@@ -6,7 +6,7 @@
 
     public class HttpSession : IHttpSession
     {
-        private Dictionary<string, object> parameters;
+        private readonly Dictionary<string, object> parameters;
 
         public HttpSession(string id)
         {
@@ -20,7 +20,11 @@
         {
             CoreValidator.ThrowIfNullOrEmpty(name, nameof(name));
             CoreValidator.ThrowIfNull(parameter, nameof(parameter));
-            if (!this.ContainsParameter(name))
+            if (this.ContainsParameter(name))
+            {
+                this.parameters[name] = parameter;
+            }
+            else
             {
                 this.parameters.Add(name, parameter);
             }

@@ -2,8 +2,10 @@
 {
     using Contracts;
     using SIS.HTTP.Common;
+    using SIS.HTTP.Exceptions;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Text;
 
     public class HttpCookieCollection : IHttpCookieCollection
     {
@@ -35,7 +37,7 @@
             CoreValidator.ThrowIfNullOrEmpty(key, nameof(key));
             if (!this.ContainsCookie(key))
             {
-                return null;
+                throw new BadRequestException();
             }
 
             return this.cookies[key];
@@ -61,7 +63,12 @@
 
         public override string ToString()
         {
-            return string.Join("; ", this.cookies.Values);
+            var sb = new StringBuilder();
+            foreach (var cookie in this.cookies.Values)
+            {
+                sb.Append($"Set-Cookie: {cookie}").Append(GlobalConstants.HttpNewLine);
+            }
+            return sb.ToString().TrimEnd();
         }
     }
 }
