@@ -1,0 +1,14 @@
+section{
+    margin-top: 100px;
+    margin-left: 200px;
+    margin-right: 200px;
+    font-family: "Helvetca", sans-serif;
+}
+section h1{
+    text-align: center;
+    font-size: 30px;
+}
+
+section article header p{
+    font-style: italic;
+}
