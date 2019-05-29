@@ -91,7 +91,15 @@
                 foreach (var query in unparsedQueries)
                 {
                     var queryArgs = query.Split('=');
-                    this.FormData.Add(queryArgs[0], queryArgs[1]);
+                    var key = queryArgs[0];
+                    var value = queryArgs[1];
+
+                    if (!this.FormData.ContainsKey(key))
+                    {
+                        this.FormData.Add(key, new HashSet<string>());
+                    }
+
+                    ((ISet<string>)this.FormData[key]).Add(value);
                 }
             }
         }

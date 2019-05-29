@@ -17,6 +17,8 @@
     using System.Net.Sockets;
     using System.Text;
     using System.Threading.Tasks;
+    using System.Reflection;
+    using System.IO;
 
     public class ConnectionHandler
     {
@@ -91,6 +93,27 @@
             return new HttpRequest(result.ToString());
         }
 
+        private IHttpResponse ReturnIfResource(IHttpRequest httpRequest)
+        {
+            string folderPrefix = "/../../../../";
+            string resourcesFolderPath = "Resources/";
+            string assemblyLocation = Assembly.GetExecutingAssembly().Location;
+            string path = httpRequest.Path;
+
+            string fullPathToResource = assemblyLocation + folderPrefix + resourcesFolderPath + path;
+
+            if (File.Exists(fullPathToResource))
+            {
+                byte[] content = File.ReadAllBytes(fullPathToResource);
+                return new InlineResourceResult(content, HttpResponseStatusCode.Found);
+            }
+            else
+            {
+                return new TextResult($"Route with method {httpRequest.RequestMethod} and path \"{httpRequest.Path}\" not found.",
+                    HttpResponseStatusCode.NotFound);
+            }
+        }
+
         private IHttpResponse HandleRequest(IHttpRequest httpRequest)
         {
             var requestMethod = httpRequest.RequestMethod;
@@ -98,8 +121,7 @@
 
             if (!this.serverRoutingTable.Contains(requestMethod, path))
             {
-                return new TextResult($"Route with method {requestMethod} and path \"{path}\" not found.", 
-                    HttpResponseStatusCode.NotFound);
+                return this.ReturnIfResource(httpRequest);
             }
 
             return this.serverRoutingTable.Get(requestMethod, path).Invoke(httpRequest);
