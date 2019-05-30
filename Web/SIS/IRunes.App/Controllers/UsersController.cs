@@ -2,6 +2,8 @@
 using IRunes.Models;
 using SIS.HTTP.Requests.Contracts;
 using SIS.HTTP.Responses.Contracts;
+using SIS.WebServer;
+using SIS.WebServer.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,13 +12,14 @@ using System.Text;
 
 namespace IRunes.App.Controllers
 {
-    public class UsersController : BaseController
+    public class UsersController : Controller
     {
         public IHttpResponse Login (IHttpRequest httpRequest)
         {
             return this.View();
         }
 
+        [HttpPost]
         public IHttpResponse LoginConfirm(IHttpRequest httpRequest)
         {
             using(var context = new RunesDbContext())
@@ -31,7 +34,7 @@ namespace IRunes.App.Controllers
                     return this.Redirect("Login");
                 }
 
-                this.SignIn(httpRequest, userFromDb);
+                this.SignIn(httpRequest, userFromDb.Id, userFromDb.Username, userFromDb.Email);
             }
 
             return this.Redirect("/");
@@ -42,6 +45,7 @@ namespace IRunes.App.Controllers
             return this.View();
         }
 
+        [HttpPost]
         public IHttpResponse RegisterConfirm(IHttpRequest httpRequest)
         {
             using (var context = new RunesDbContext())

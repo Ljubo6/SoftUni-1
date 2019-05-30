@@ -1,6 +1,5 @@
-﻿namespace IRunes.App.Controllers
+﻿namespace SIS.WebServer
 {
-    using IRunes.Models;
     using SIS.HTTP.Enums;
     using SIS.HTTP.Requests.Contracts;
     using SIS.HTTP.Responses.Contracts;
@@ -9,11 +8,11 @@
     using System.IO;
     using System.Runtime.CompilerServices;
 
-    public class BaseController
+    public class Controller
     {
         protected Dictionary<string, object> ViewData;
 
-        protected BaseController()
+        protected Controller()
         {
             this.ViewData = new Dictionary<string, object>();
         }
@@ -46,11 +45,11 @@
             return new RedirectResult(url);
         }
 
-        protected void SignIn(IHttpRequest httpRequest, User user)
+        protected void SignIn(IHttpRequest httpRequest, string id, string username, string email)
         {
-            httpRequest.Session.AddParameter("id", user.Id);
-            httpRequest.Session.AddParameter("username", user.Username);
-            httpRequest.Session.AddParameter("email", user.Email);
+            httpRequest.Session.AddParameter("id", id);
+            httpRequest.Session.AddParameter("username", username);
+            httpRequest.Session.AddParameter("email", email);
         }
 
         protected void SignOut(IHttpRequest httpRequest)

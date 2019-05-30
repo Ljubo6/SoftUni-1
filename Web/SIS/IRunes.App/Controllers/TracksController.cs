@@ -5,10 +5,12 @@
     using IRunes.Models;
     using SIS.HTTP.Requests.Contracts;
     using SIS.HTTP.Responses.Contracts;
+    using SIS.WebServer;
+    using SIS.WebServer.Attributes;
     using System.Collections.Generic;
     using System.Linq;
 
-    public class TracksController : BaseController
+    public class TracksController : Controller
     {
         public IHttpResponse Create(string id)
         {
@@ -16,6 +18,7 @@
             return this.View();
         }
 
+        [HttpPost]
         public IHttpResponse CreateConfirm(IHttpRequest httpRequest)
         {
             using (var context = new RunesDbContext())

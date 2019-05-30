@@ -4,6 +4,7 @@ using SIS.HTTP.Enums;
 using SIS.WebServer;
 using SIS.WebServer.Results;
 using SIS.WebServer.Routing;
+using SIS.WebServer.Routing.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,14 +13,12 @@ namespace IRunes.App
 {
     public class StartUp : IMvcApplication
     {
-        public void Configure()
+        public void Configure(IServerRoutingTable serverRoutingTable)
         {
             using (var context = new RunesDbContext())
             {
                 context.Database.EnsureCreated();
             }
-
-            ServerRoutingTable serverRoutingTable = new ServerRoutingTable();
 
             serverRoutingTable.Add(HttpRequestMethod.Get, "/", request => new RedirectResult("/Home/Index"));
             serverRoutingTable.Add(HttpRequestMethod.Get, "/Home/Index", request => new HomeController().Index(request));
@@ -39,14 +38,10 @@ namespace IRunes.App
             serverRoutingTable.Add(HttpRequestMethod.Post, "/Tracks/Create", request => new TracksController().CreateConfirm(request));
 
             serverRoutingTable.Add(HttpRequestMethod.Get, "/Tracks/Details", request => new TracksController().Details(request));
-
-            Server server = new Server(8000, serverRoutingTable);
-            server.Run();
         }
 
         public void ConfigureServices()
         {
-            throw new NotImplementedException();
         }
     }
 }

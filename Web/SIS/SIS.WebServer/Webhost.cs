@@ -1,14 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SIS.WebServer
+﻿namespace SIS.WebServer
 {
+    using SIS.WebServer.Routing;
+
     public static class Webhost
     {
         public static void Start(IMvcApplication application)
         {
-            application.Configure();
+            ServerRoutingTable serverRoutingTable = new ServerRoutingTable();
+            application.ConfigureServices();
+            application.Configure(serverRoutingTable);
+            Server server = new Server(8000, serverRoutingTable);
+            server.Run();
         }
     }
 }

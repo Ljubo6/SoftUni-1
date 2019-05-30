@@ -6,10 +6,12 @@
     using Microsoft.EntityFrameworkCore;
     using SIS.HTTP.Requests.Contracts;
     using SIS.HTTP.Responses.Contracts;
+    using SIS.WebServer;
+    using SIS.WebServer.Attributes;
     using System.Collections.Generic;
     using System.Linq;
 
-    public class AlbumsController : BaseController
+    public class AlbumsController : Controller
     {
         public IHttpResponse All(IHttpRequest httpRequest)
         {
@@ -41,6 +43,7 @@
             return this.View();
         }
 
+        [HttpPost]
         public IHttpResponse CreateConfirm(IHttpRequest httpRequest)
         {
             using (var context = new RunesDbContext())
