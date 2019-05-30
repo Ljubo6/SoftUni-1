@@ -1,14 +1,13 @@
-﻿using IRunes.Data;
-using IRunes.Models;
-using SIS.HTTP.Requests.Contracts;
-using SIS.HTTP.Responses.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace IRunes.App.Controllers
+﻿namespace IRunes.App.Controllers
 {
+    using IRunes.App.Extensions;
+    using IRunes.Data;
+    using IRunes.Models;
+    using SIS.HTTP.Requests.Contracts;
+    using SIS.HTTP.Responses.Contracts;
+    using System.Collections.Generic;
+    using System.Linq;
+
     public class TracksController : BaseController
     {
         public IHttpResponse Create(string id)
@@ -48,12 +47,14 @@ namespace IRunes.App.Controllers
 
         public IHttpResponse Details(IHttpRequest httpRequest)
         {
-            var trackId = httpRequest.QueryData["id"].ToString();
+            var albumId = httpRequest.QueryData["albumId"].ToString();
+            var trackId = httpRequest.QueryData["trackId"].ToString();
 
             using (var context = new RunesDbContext())
             {
                 var track = context.Tracks.FirstOrDefault(a => a.Id == trackId);
-                //this.ViewData["Track"] = track.ToViewDetails();
+                this.ViewData["AlbumId"] = albumId;
+                this.ViewData["Track"] = track.ToViewDetails(albumId);
             }
 
             return this.View();

@@ -39,17 +39,19 @@
             return $"<li><strong>{index}</strong>. <a href=\"/Tracks/Details?albumId={albumId}&trackId={track.Id}\"><i>{WebUtility.UrlDecode(track.Name)}</i></a></li>";
         }
 
-        public static string ToViewDetails(this Track track)
+        public static string ToViewDetails(this Track track, string albumId)
         {
-            return "<div class=\"album-details d-flex justify-content-between row\">" +
-                   "    <div class=\"album-data col-md-5\">" +
-                   $"       <img src=\"{WebUtility.UrlDecode(track.Link)}\" class=\"img-thumbnail\"/>" +
-                   $"       <h1 class=\"text-center\">Album Name: {WebUtility.UrlDecode(track.Name)}</h1>" +
-                   $"       <h1 class=\"text-center\">Album Price: ${track.Price:F2}</h1>" +
-                   "        <div class=\"d-flex justify-content-between\">" +
-                   $"           <a class=\"btn bg-success text-white\" href=\"/Tracks/Create?trackId={track.Id}\">Create Track</a>" +
-                   "            <a class=\"btn bg-success text-white\" href=\"/Albums/All\">Back To All</a>" +
-                   "        </div>" +
+            return "<div class=\"track-details\">" +
+                   $"    <h4 class=\"text-center\">Track Name: {WebUtility.UrlDecode(track.Name)}</h4>" +
+                   $"    <h4 class=\"text-center\">Track Price: ${track.Price:F2}</h4>" +
+                   "    <hr class=\"bg-success w-50\" style=\"height: 2px\" />" +
+                   "    <div class=\"d-flex justify-content-center\">" +
+                   $"        <iframe class=\"height=\"480\"\" src=\"{WebUtility.UrlDecode(track.Link)}\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted - media; gyroscope; picture -in-picture\" allowfullscreen></iframe>" +
+                  
+            "    </div>" +
+                   "    <hr class=\"bg-success w-50\" style=\"height: 2px\" />" +
+                   "    <div class=\"d-flex justify-content-center\">" +
+                   $"        <a href=\"/Albums/Details?id={albumId}\" class=\"btn bg-success text-white\">Back To Album</a>" +
                    "    </div>" +
                    "</div>";
         }
