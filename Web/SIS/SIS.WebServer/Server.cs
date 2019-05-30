@@ -35,8 +35,6 @@
 
             while (isRunning)
             {
-                Console.WriteLine("Waiting for a client...");
-
                 Socket client = tcpListener.AcceptSocketAsync().GetAwaiter().GetResult();
 
                 Task.Run(() => this.Listen(client));
