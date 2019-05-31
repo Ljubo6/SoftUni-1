@@ -18,7 +18,7 @@
             return this.View();
         }
 
-        [HttpPost]
+        [HttpPost (ActionName = "Create")]
         public IHttpResponse CreateConfirm(IHttpRequest httpRequest)
         {
             using (var context = new RunesDbContext())
