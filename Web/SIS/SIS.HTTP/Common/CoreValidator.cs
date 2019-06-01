@@ -1,12 +1,12 @@
-﻿namespace SIS.HTTP.Common
-{
-    using System;
+﻿using System;
 
+namespace SIS.HTTP.Common
+{
     public class CoreValidator
     {
         public static void ThrowIfNull(object obj, string name)
         {
-            if(obj == null)
+            if (obj == null)
             {
                 throw new ArgumentNullException(name);
             }
@@ -16,7 +16,7 @@
         {
             if (string.IsNullOrEmpty(text))
             {
-                throw new ArgumentNullException($"{name} cannot be null or empty.");
+                throw new ArgumentNullException($"{name} cannot be null or empty", name);
             }
         }
     }

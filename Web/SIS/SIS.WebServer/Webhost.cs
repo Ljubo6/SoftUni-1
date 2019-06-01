@@ -1,16 +1,18 @@
-﻿namespace SIS.WebServer
-{
-    using System;
-    using System.Linq;
-    using System.Reflection;
-    using SIS.HTTP.Enums;
-    using SIS.HTTP.Responses;
-    using SIS.HTTP.Responses.Contracts;
-    using SIS.WebServer.Attributes;
-    using SIS.WebServer.Routing;
-    using SIS.WebServer.Routing.Contracts;
+﻿using System;
+using System.Linq;
+using System.Reflection;
+using SIS.HTTP.Enums;
+using SIS.HTTP.Responses;
+using SIS.MvcFramework.Attributes;
+using SIS.MvcFramework.Attributes.Action;
+using SIS.MvcFramework.Attributes.Security;
+using SIS.MvcFramework.Result;
+using SIS.WebServer;
+using SIS.WebServer.Routing;
 
-    public static class Webhost
+namespace SIS.MvcFramework
+{
+    public static class WebHost
     {
         public static void Start(IMvcApplication application)
         {
@@ -18,59 +20,78 @@
             AutoRegisterRoutes(application, serverRoutingTable);
             application.ConfigureServices();
             application.Configure(serverRoutingTable);
-            Server server = new Server(8000, serverRoutingTable);
+            var server = new Server(8000, serverRoutingTable);
             server.Run();
         }
 
-        private static void AutoRegisterRoutes(IMvcApplication application, IServerRoutingTable serverRoutingTable)
+        private static void AutoRegisterRoutes(
+            IMvcApplication application, IServerRoutingTable serverRoutingTable)
         {
-            var controllers = application.GetType().Assembly
-                                .GetTypes()
-                                .Where(type => type.IsClass 
-                                        && !type.IsAbstract 
-                                        && type.IsSubclassOf(typeof(Controller)));
-
+            var controllers = application.GetType().Assembly.GetTypes()
+                .Where(type => type.IsClass && !type.IsAbstract
+                    && typeof(Controller).IsAssignableFrom(type));
+            // TODO: RemoveToString from InfoController
             foreach (var controller in controllers)
             {
                 var actions = controller
-                    .GetMethods(BindingFlags.Public
-                    | BindingFlags.DeclaredOnly
+                    .GetMethods(BindingFlags.DeclaredOnly
+                    | BindingFlags.Public
                     | BindingFlags.Instance)
-                    .Where(m => !m.IsSpecialName
-                    && m.DeclaringType == controller);
+                    .Where(x => !x.IsSpecialName && x.DeclaringType == controller)
+                    .Where(x => x.GetCustomAttributes().All(a => a.GetType() != typeof(NonActionAttribute)));
 
                 foreach (var action in actions)
                 {
                     var path = $"/{controller.Name.Replace("Controller", string.Empty)}/{action.Name}";
-                    var attribute = action.GetCustomAttributes()
-                        .Where(a => a.GetType().IsSubclassOf(typeof(BaseHttpAttribute))).LastOrDefault() as BaseHttpAttribute;
-
+                    var attribute = action.GetCustomAttributes().Where(
+                        x => x.GetType().IsSubclassOf(typeof(BaseHttpAttribute))).LastOrDefault() as BaseHttpAttribute;
                     var httpMethod = HttpRequestMethod.Get;
-
-                    if(attribute != null)
+                    if (attribute != null)
                     {
                         httpMethod = attribute.Method;
                     }
 
-                    if(attribute?.Url != null)
+                    if (attribute?.Url != null)
                     {
                         path = attribute.Url;
                     }
 
-                    if(attribute?.ActionName != null)
+                    if (attribute?.ActionName != null)
                     {
                         path = $"/{controller.Name.Replace("Controller", string.Empty)}/{attribute.ActionName}";
                     }
 
                     serverRoutingTable.Add(httpMethod, path, request =>
                     {
+                        // request => new UsersController().Login(request)
                         var controllerInstance = Activator.CreateInstance(controller);
-                        var response = action.Invoke(controllerInstance, new[] { request }) as IHttpResponse;
+                        ((Controller)controllerInstance).Request = request;
+
+                        // Security Authorization - TODO: Refactor this
+                        var controllerPrincipal = ((Controller)controllerInstance).User;
+                        var authorizeAttribute = action.GetCustomAttributes()
+                            .LastOrDefault(a => a.GetType() == typeof(AuthorizeAttribute)) as AuthorizeAttribute;
+
+                        if (authorizeAttribute != null && !authorizeAttribute.IsInAuthority(controllerPrincipal))
+                        {
+                            // TODO: Redirect to configured URL
+                            return new HttpResponse(HttpResponseStatusCode.Forbidden);
+                        }
+
+                        var response = action.Invoke(controllerInstance, new object[0]) as ActionResult;
                         return response;
                     });
-                }
 
+                    Console.WriteLine(httpMethod + " " + path);
+                }
             }
+            // Reflection
+            // Assembly
+            // typeof(Server).GetMethods()
+            // sb.GetType().GetMethods();
+            // Activator.CreateInstance(typeof(Server))
+            var sb = DateTime.UtcNow;
+
         }
     }
 }

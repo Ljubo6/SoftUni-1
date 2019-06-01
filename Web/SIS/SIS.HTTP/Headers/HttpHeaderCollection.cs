@@ -1,55 +1,38 @@
-﻿using SIS.HTTP.Common;
-using SIS.HTTP.Headers.Contracts;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Linq;
+using SIS.HTTP.Common;
 
 namespace SIS.HTTP.Headers
 {
     public class HttpHeaderCollection : IHttpHeaderCollection
     {
-        private readonly Dictionary<string, HttpHeader> headers;
+        private Dictionary<string, HttpHeader> httpHeaders;
 
         public HttpHeaderCollection()
         {
-            this.headers = new Dictionary<string, HttpHeader>();
+            this.httpHeaders = new Dictionary<string, HttpHeader>();
         }
 
         public void AddHeader(HttpHeader header)
         {
-            CoreValidator.ThrowIfNull(header, header.Key);
-            if (!this.ContainsHeader(header.Key))
-            {
-                this.headers.Add(header.Key, header);
-            }
+            CoreValidator.ThrowIfNull(header, nameof(header));
+            this.httpHeaders.Add(header.Key, header);
         }
 
         public bool ContainsHeader(string key)
         {
             CoreValidator.ThrowIfNullOrEmpty(key, nameof(key));
-            return this.headers.ContainsKey(key);
+            return this.httpHeaders.ContainsKey(key);
         }
 
         public HttpHeader GetHeader(string key)
         {
             CoreValidator.ThrowIfNullOrEmpty(key, nameof(key));
-            if (!this.ContainsHeader(key))
-            {
-                return null;
-            }
-
-            return this.headers[key];
+            return this.httpHeaders[key];
         }
 
-        public override string ToString()
-        {
-            var headerString = new StringBuilder();
-            foreach (var header in headers.Values)
-            {
-                headerString.Append(header.ToString());
-                headerString.Append(GlobalConstants.HttpNewLine);
-            }
+        public override string ToString() => string.Join("\r\n",
+            this.httpHeaders.Values.Select(header => header.ToString()));
 
-            return headerString.ToString().TrimEnd();
-        }
     }
 }
