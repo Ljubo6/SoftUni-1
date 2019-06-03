@@ -58,8 +58,7 @@ namespace AppViewCodeNamespace
 
         private string GetCSharpCode(string viewContent)
         {
-            // TODO: { var a = "Niki"; }
-            var lines = viewContent.Split(new [] { '\r', '\n'}, StringSplitOptions.None);
+            var lines = viewContent.Split(new string[] { "\n\r", "\r\n", "\n"}, StringSplitOptions.RemoveEmptyEntries);
             var csharpCode = new StringBuilder();
             var supportedOperators = new[] { "for", "if", "else" };
             var csharpCodeRegex = new Regex(@"[^\s<""]+", RegexOptions.Compiled);
