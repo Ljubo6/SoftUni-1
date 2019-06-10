@@ -22,8 +22,7 @@
         [Authorize]
         public IActionResult Index()
         {
-            var userId = this.userService.GetUserIdByUsername(this.User.Username);
-            var allUserReceipts = this.receiptService.GetAllReceiptByUserId(userId);
+            var allUserReceipts = this.receiptService.GetAllReceiptByUserId(this.User.Id);
             var viewModel = new List<ReceiptViewModel>();
 
             foreach (var receipt in allUserReceipts)

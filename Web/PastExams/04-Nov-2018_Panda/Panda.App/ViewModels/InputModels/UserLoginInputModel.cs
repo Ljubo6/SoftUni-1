@@ -1,15 +1,15 @@
-﻿using SIS.MvcFramework.Attributes.Validation;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Panda.App.ViewModels.InputModels
+﻿namespace Panda.App.ViewModels.InputModels
 {
+    using SIS.MvcFramework.Attributes.Validation;
+
     public class UserLoginInputModel
     {
-        [RequiredSis]
+        private const string ErrorMessage = "Both username and password are required!";
+
+        [RequiredSis(ErrorMessage)]
         public string Username { get; set; }
-        [RequiredSis]
+
+        [RequiredSis(ErrorMessage)]
         public string Password { get; set; }
     }
 }

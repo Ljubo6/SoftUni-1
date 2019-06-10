@@ -52,8 +52,7 @@
         [Authorize]
         public IActionResult Pending()
         {
-            var userId = this.userService.GetUserIdByUsername(this.User.Username);
-            var pendingPackages = this.packageService.GetPendingPackagesByUserId(userId);
+            var pendingPackages = this.packageService.GetPendingPackagesByUserId(this.User.Id);
 
             var viewModel = pendingPackages.Select(ModelMapper.ProjectTo<PendingPackageViewModel>).ToList();
 
@@ -76,16 +75,15 @@
         [Authorize]
         public IActionResult Delivered()
         {
-            var userId = this.userService.GetUserIdByUsername(this.User.Username);
-            var deliveredPackages = this.packageService.GetDeliveredPackagesByUserId(userId);
-            var viewModel = deliveredPackages.Select(ModelMapper.ProjectTo<DeliveredPackageViewModel>).ToList();
+            var deliveredPackages = this.packageService.GetDeliveredPackagesByUserId(this.User.Id);
+            var deliveredPackagesViewModel = deliveredPackages.Select(ModelMapper.ProjectTo<DeliveredPackageViewModel>).ToList();
 
-            foreach (var package in viewModel)
+            foreach (var package in deliveredPackagesViewModel)
             {
                 package.RecipientName = this.User.Username;
             }
 
-            return this.View(viewModel);
+            return this.View(deliveredPackagesViewModel);
         }
     }
 }

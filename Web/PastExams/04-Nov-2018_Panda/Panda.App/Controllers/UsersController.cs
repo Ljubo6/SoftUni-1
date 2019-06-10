@@ -33,7 +33,7 @@
 
             if(inputModel.Password != inputModel.ConfirmPassword)
             {
-                return this.Redirect("/Users/Login");
+                return this.Redirect("/Users/Register");
             }
 
             var newDbUser = new User()
@@ -58,7 +58,7 @@
         {
             var userFromDb = this.userService
                 .GetUserByUsernameAndPassword(inputModel.Username, this.HashPassword(inputModel.Password));
-                
+
             if (userFromDb == null)
             {
                 return this.Redirect("/Users/Login");
