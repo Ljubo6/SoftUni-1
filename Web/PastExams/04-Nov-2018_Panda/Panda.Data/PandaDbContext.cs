@@ -20,10 +20,14 @@
                 .HasKey(user => user.Id);
             modelBuilder.Entity<User>()
                 .HasMany(u => u.Packages)
-                .WithOne(p => p.Recipient);
+                .WithOne(p => p.Recipient)
+                .HasForeignKey(r => r.RecipientId)
+                .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<User>()
                 .HasMany(u => u.Receipts)
-                .WithOne(r => r.Recipient);
+                .WithOne(r => r.Recipient)
+                .HasForeignKey(r => r.RecipientId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Package>()
                 .HasKey(package => package.Id);

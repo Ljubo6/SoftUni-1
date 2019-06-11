@@ -8,34 +8,42 @@
     public class PackageService : IPackageService
     {
         private readonly PandaDbContext context;
-        public PackageService(PandaDbContext context)
+        private readonly IUserService userService;
+        private readonly IReceiptService receiptService;
+        public PackageService(PandaDbContext context, IUserService userService, IReceiptService receiptService)
         {
             this.context = context;
+            this.userService = userService;
+            this.receiptService = receiptService;
         }
-        public Package AddPackageToDb(Package package)
+        public void AddPackageToDb(string description, string shippingAddress, decimal weight, string recipientName)
         {
-            package = this.context.Packages.Add(package).Entity;
+            var recipientId = this.userService.GetUserIdByUsername(recipientName);
+
+            var package = new Package
+            {
+                Description = description,
+                ShippingAddress = shippingAddress,
+                Weight = weight,
+                RecipientId = recipientId,
+                Status = PackageStatus.Pending
+            };
+
+            this.context.Packages.Add(package);
             this.context.SaveChanges();
-            return package;
         }
 
         public void DeliverPackageById(string id)
         {
-            this.context.Packages.FirstOrDefault(p => p.Id == id).Status = Status.Delivered;
+            this.context.Packages.FirstOrDefault(p => p.Id == id).Status = PackageStatus.Delivered;
+            this.receiptService.GenerateReceiptForPackageId(id);
             this.context.SaveChanges();
         }
 
-        public IList<Package> GetDeliveredPackagesByUserId(string userId)
+        public IList<Package> GetPackagesByStatusAndUserId(PackageStatus status, string userId)
         {
             return this.context.Packages
-                .Where(p => p.RecipientId == userId && p.Status == Status.Delivered)
-                .ToList();
-        }
-
-        public IList<Package> GetPendingPackagesByUserId(string userId)
-        {
-            return this.context.Packages
-                .Where(p => p.RecipientId == userId && p.Status == Status.Pending)
+                .Where(p => p.RecipientId == userId && p.Status == status)
                 .ToList();
         }
     }

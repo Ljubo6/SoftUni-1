@@ -19,6 +19,7 @@
             this.receiptService = receiptService;
             this.userService = userService;
         }
+
         [Authorize]
         public IActionResult Index()
         {

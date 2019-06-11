@@ -6,7 +6,7 @@ namespace Panda.Services
 {
     public interface IUserService
     {
-        User AddUser(User user);
+        void AddUser(string username, string email, string password);
         User GetUserByUsernameAndPassword(string username, string password);
         IList<User> GetAllUsers();
         string GetUserIdByUsername(string username);

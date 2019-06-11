@@ -1,11 +1,10 @@
 ﻿using SIS.MvcFramework;
-using System;
 
 namespace Panda.App
 {
-    public class Program
+    public static class Program
     {
-        public static void Main(string[] args)
+        public static void Main()
         {
             WebHost.Start(new StartUp());
         }

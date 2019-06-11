@@ -1,8 +1,8 @@
 ﻿namespace Panda.Models
 {
-    public enum Status
+    public enum PackageStatus
     {
-        Pending,
-        Delivered
+        Pending = 1,
+        Delivered = 2
     }
 }

@@ -5,9 +5,8 @@
 
     public interface IPackageService
     {
-        Package AddPackageToDb(Package package);
-        IList<Package> GetPendingPackagesByUserId(string userId);
+        void AddPackageToDb(string description, string shippingAddress, decimal weight, string recipientName);
+        IList<Package> GetPackagesByStatusAndUserId(PackageStatus status, string userId);
         void DeliverPackageById(string id);
-        IList<Package> GetDeliveredPackagesByUserId(string userId);
     }
 }

@@ -1,15 +1,11 @@
 ﻿namespace Panda.App.Controllers
 {
     using Panda.App.ViewModels.InputModels;
-    using Panda.Models;
     using Panda.Services;
     using SIS.MvcFramework;
     using SIS.MvcFramework.Attributes;
-    using SIS.MvcFramework.Attributes.Action;
-    using SIS.MvcFramework.Mapping;
+    using SIS.MvcFramework.Attributes.Security;
     using SIS.MvcFramework.Result;
-    using System.Security.Cryptography;
-    using System.Text;
 
     public class UsersController : Controller
     {
@@ -36,15 +32,7 @@
                 return this.Redirect("/Users/Register");
             }
 
-            var newDbUser = new User()
-            {
-                Username = inputModel.Username,
-                Email = inputModel.Email,
-                Password = this.HashPassword(inputModel.Password)
-            };
-
-            this.userService.AddUser(newDbUser);
-
+            this.userService.AddUser(inputModel.Username, inputModel.Email, inputModel.Password);
             return this.Redirect("/Users/Login");
         }
 
@@ -57,7 +45,7 @@
         public IActionResult Login(UserLoginInputModel inputModel)
         {
             var userFromDb = this.userService
-                .GetUserByUsernameAndPassword(inputModel.Username, this.HashPassword(inputModel.Password));
+                .GetUserByUsernameAndPassword(inputModel.Username, inputModel.Password);
 
             if (userFromDb == null)
             {
@@ -65,24 +53,14 @@
             }
 
             this.SignIn(userFromDb.Id, userFromDb.Username, userFromDb.Email);
-
-            return this.Redirect("/Home/Index");
-        }
-
-        public IActionResult Logout()
-        {
-            this.SignOut();
-
             return this.Redirect("/");
         }
 
-        [NonAction]
-        private string HashPassword(string password)
+        [Authorize]
+        public IActionResult Logout()
         {
-            using (SHA256 sha256Hash = SHA256.Create())
-            {
-                return Encoding.UTF8.GetString(sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password)));
-            }
+            this.SignOut();
+            return this.Redirect("/");
         }
     }
 }

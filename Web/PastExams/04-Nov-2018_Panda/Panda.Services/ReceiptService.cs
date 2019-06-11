@@ -19,8 +19,8 @@
 
             var newReceipt = new Receipt
             {
-                Fee = (decimal)package.Weight * 2.67m,
-                IssuedOn = DateTime.Now,
+                Fee = package.Weight * 2.67m,
+                IssuedOn = DateTime.UtcNow,
                 Package = package,
                 PackageId = id,
                 RecipientId = package.RecipientId,

@@ -5,15 +5,28 @@
 
     public class Package
     {
+        public Package()
+        {
+            this.Id = Guid.NewGuid().ToString();
+        }
+
         public string Id { get; set; }
-        [StringLength(20, MinimumLength = 5)]
+
+        [MaxLength(20)]
+        [Required]
         public string Description { get; set; }
-        public double Weight { get; set; }
+
+        public decimal Weight { get; set; }
+
         public string ShippingAddress { get; set; }
-        public Status Status { get; set; }
+
+        public PackageStatus Status { get; set; }
+
         public DateTime EstimatedDeliveryDate { get; set; }
+
         [Required]
         public string RecipientId { get; set; }
-        public User Recipient { get; set; }
+
+        public virtual User Recipient { get; set; }
     }
 }

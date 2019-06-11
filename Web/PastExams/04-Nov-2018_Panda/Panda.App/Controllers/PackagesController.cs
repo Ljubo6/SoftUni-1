@@ -1,6 +1,7 @@
 ﻿namespace Panda.App.Controllers
 {
     using Panda.App.ViewModels.ViewModels;
+    using Panda.App.ViewModels.InputModels;
     using Panda.Models;
     using Panda.Services;
     using SIS.MvcFramework;
@@ -14,13 +15,11 @@
     {
         private readonly IUserService userService;
         private readonly IPackageService packageService;
-        private readonly IReceiptService receiptService;
 
-        public PackagesController(IUserService userService, IPackageService packageService, IReceiptService receiptService)
+        public PackagesController(IUserService userService, IPackageService packageService)
         {
             this.userService = userService;
             this.packageService = packageService;
-            this.receiptService = receiptService;
         }
 
         [Authorize]
@@ -35,24 +34,20 @@
         [HttpPost]
         public IActionResult Create(PackageCreateInputModel inputModel)
         {
-            var newPackage = new Package
+            if (!this.ModelState.IsValid)
             {
-                Description = inputModel.Description,
-                ShippingAddress = inputModel.ShippingAddress,
-                Weight = inputModel.Weight,
-                RecipientId = this.userService.GetUserIdByUsername(inputModel.RecipientName),
-                Status = Status.Pending
-            };
+                return this.Redirect("/Packages/Create");
+            }
 
-            this.packageService.AddPackageToDb(newPackage);
-
+            
+            this.packageService.AddPackageToDb(inputModel.Description, inputModel.ShippingAddress, inputModel.Weight, inputModel.RecipientName);
             return this.Redirect("/Home/Index");
         }
 
         [Authorize]
         public IActionResult Pending()
         {
-            var pendingPackages = this.packageService.GetPendingPackagesByUserId(this.User.Id);
+            var pendingPackages = this.packageService.GetPackagesByStatusAndUserId(PackageStatus.Pending, this.User.Id);
 
             var viewModel = pendingPackages.Select(ModelMapper.ProjectTo<PendingPackageViewModel>).ToList();
 
@@ -68,14 +63,13 @@
         public IActionResult Deliver(string id)
         {
             this.packageService.DeliverPackageById(id);
-            this.receiptService.GenerateReceiptForPackageId(id);
             return this.Redirect("/Packages/Pending");
         }
 
         [Authorize]
         public IActionResult Delivered()
         {
-            var deliveredPackages = this.packageService.GetDeliveredPackagesByUserId(this.User.Id);
+            var deliveredPackages = this.packageService.GetPackagesByStatusAndUserId(PackageStatus.Delivered, this.User.Id);
             var deliveredPackagesViewModel = deliveredPackages.Select(ModelMapper.ProjectTo<DeliveredPackageViewModel>).ToList();
 
             foreach (var package in deliveredPackagesViewModel)
