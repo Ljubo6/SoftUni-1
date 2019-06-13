@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Torshia.Dat\Torshia.Data.csproj" />
+    <ProjectReference Include="..\Torshia.Models\Torshia.Models.csproj" />
+  </ItemGroup>
+
+</Project>
