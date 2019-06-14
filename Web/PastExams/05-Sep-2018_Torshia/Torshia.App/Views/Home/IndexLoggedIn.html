@@ -1,0 +1,42 @@
+﻿<main>
+    @if(User.Roles.Contains("Admin"))
+    {
+    <h3 class="text-center text-torshia">Welcome, Admin-<span>@User.Username</span>!</h3>
+    <h3 class="text-center text-torshia">Enjoy your work!</h3>
+    }
+    @else
+    {
+    <h3 class="text-center text-torshia">Welcome, <span>@User.Username</span>!</h3>
+    <h3 class="text-center text-torshia">Have a nice tasking experience!</h3>
+    }
+
+    <hr class="bg-torshia" style="height: 2px" />
+    <div class="tasks">
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+        @if(i % 5 == 0)
+        {
+        <div class="task-row d-flex justify-content-start text-white mt-4">
+            }
+            <div class="task border-0 p-3 bg-torshia w-25">
+                <div class="text-holder d-flex justify-content-center p">
+                    <h6>@Model.ToList()[i].Title</h6>
+                </div>
+                <hr class="bg-white w-75 mx-auto" style="height: 2px" />
+                <div class="text-holder d-flex justify-content-center">
+                    <h6>Level: @Model.ToList()[i].Level</h6>
+                </div>
+                <hr class="bg-white w-75 mx-auto" style="height: 2px" />
+                <div class="text-holder d-flex justify-content-between">
+                    <h6><a href="/Tasks/Report?taskId=@Model.ToList()[i].Id">Report</a></h6>
+                    <h6><a href="/Tasks/Details?taskId=@Model.ToList()[i].Id">Details</a></h6>
+                </div>
+            </div>
+
+            @if(i % 5 == 4)
+            {
+        </div>
+        }
+        }
+    </div>
+</main>

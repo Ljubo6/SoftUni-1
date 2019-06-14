@@ -3,9 +3,19 @@
     using SIS.MvcFramework;
     using SIS.MvcFramework.Attributes;
     using SIS.MvcFramework.Result;
+    using System.Linq;
+    using Torshia.App.ViewModels;
+    using Torshia.Services;
 
     public class HomeController : Controller
     {
+        private readonly ITaskService taskService;
+
+        public HomeController(ITaskService taskService)
+        {
+            this.taskService = taskService;
+        }
+
         [HttpGet(Url = "/")]
         public IActionResult IndexSlash()
         {
@@ -14,9 +24,18 @@
 
         public IActionResult Index()
         {
-            if (this.IsLoggedIn() && this.User.Roles.Contains("Admin"))
+            var allTasks = this.taskService.GetAllTasks().ToList();
+            var viewModel = allTasks.Select(t => new TaskViewModel
             {
-                return this.View("AdminIndex");
+                Id = t.Id,
+                Title = t.Title,
+                Level = t.AffectedSectors.Count()
+            })
+                .ToList();
+
+            if (this.IsLoggedIn())
+            {
+                return this.View(viewModel, "IndexLoggedIn");
             }
             return this.View();
         }

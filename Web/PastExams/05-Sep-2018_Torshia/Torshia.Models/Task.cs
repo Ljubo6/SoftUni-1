@@ -10,6 +10,7 @@
         {
             this.Participants = new HashSet<UserTask>();
             this.AffectedSectors = new HashSet<TaskSector>();
+            this.IsReported = false;
         }
 
         public string Id { get; set; }

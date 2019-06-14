@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Torshia.Models
+﻿namespace Torshia.Models
 {
     public class UserTask
     {

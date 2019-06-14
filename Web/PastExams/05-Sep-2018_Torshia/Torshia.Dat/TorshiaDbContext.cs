@@ -29,23 +29,31 @@
                 .HasMany(user => user.Reports)
                 .WithOne(r => r.Reporter)
                 .HasForeignKey(r => r.ReporterId);
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Tasks)
+                .WithOne(tu => tu.User)
+                .HasForeignKey(tu => tu.UserId);
 
             modelBuilder.Entity<Task>()
                 .HasKey(task => task.Id);
+            modelBuilder.Entity<Task>()
+                .HasMany(task => task.Participants)
+                .WithOne(tu => tu.Task)
+                .HasForeignKey(tu => tu.TaskId);
 
             modelBuilder.Entity<Report>()
                 .HasKey(report => report.Id);
 
             modelBuilder.Entity<UserTask>()
                 .HasKey(ut => new { ut.TaskId, ut.UserId });
-            modelBuilder.Entity<UserTask>()
-                .HasOne(ut => ut.Task)
-                .WithMany(t => t.Participants)
-                .HasForeignKey(ut => ut.TaskId);
-            modelBuilder.Entity<UserTask>()
-               .HasOne(ut => ut.User)
-               .WithMany(t => t.Tasks)
-               .HasForeignKey(ut => ut.UserId);
+            //modelBuilder.Entity<UserTask>()
+            //    .HasOne(ut => ut.Task)
+            //    .WithMany(t => t.Participants)
+            //    .HasForeignKey(ut => ut.TaskId);
+            //modelBuilder.Entity<UserTask>()
+            //   .HasOne(ut => ut.User)
+            //   .WithMany(t => t.Tasks)
+            //   .HasForeignKey(ut => ut.UserId);
 
             base.OnModelCreating(modelBuilder);
         }

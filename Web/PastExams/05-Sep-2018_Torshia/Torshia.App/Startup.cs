@@ -18,8 +18,8 @@ using Torshia.Services;
 
         public void ConfigureServices(IServiceProvider serviceProvider)
         {
-            //serviceProvider.Add<IAlbumService, AlbumService>();
-            //serviceProvider.Add<ITrackService, TrackService>();
+            serviceProvider.Add<IReportService, ReportService>();
+            serviceProvider.Add<ITaskService, TaskService>();
             serviceProvider.Add<IUserService, UserService>();
         }
     }

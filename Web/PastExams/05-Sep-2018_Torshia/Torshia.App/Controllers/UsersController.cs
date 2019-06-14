@@ -2,6 +2,7 @@
 {
     using SIS.MvcFramework;
     using SIS.MvcFramework.Attributes;
+    using SIS.MvcFramework.Attributes.Security;
     using SIS.MvcFramework.Result;
     using Torshia.App.InputModels;
     using Torshia.Services;
@@ -49,6 +50,13 @@
             }
 
             this.SignIn(userFromDb.Id, userFromDb.Username, userFromDb.Email, userFromDb.Roles.ToString());
+            return this.Redirect("/");
+        }
+
+        [Authorize]
+        public IActionResult Logout()
+        {
+            this.SignOut();
             return this.Redirect("/");
         }
     }
