@@ -40,7 +40,7 @@ namespace Torshia.App.Controllers
                 Id = report.Id,
                 TaskTitle = report.Task.Title,
                 TaskLevel = report.Task.AffectedSectors.Count,
-                AffectedSectors = string.Join(", ", report.Task.AffectedSectors),
+                AffectedSectors = string.Join(", ", report.Task.AffectedSectors.Select(s => s.Sector.ToString())),
                 ReportedOn = report.ReportedOn.ToString("dd/MM/yyyy"),
                 TaskDueDate = report.Task.DueDate.ToString("dd/MM/yyyy"),
                 ReporterName = report.Reporter.Username,

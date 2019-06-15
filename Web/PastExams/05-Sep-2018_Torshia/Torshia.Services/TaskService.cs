@@ -6,6 +6,8 @@
     using System.Linq;
     using Torshia.Data;
     using Torshia.Models;
+    using System.Collections.Generic;
+    using Torshia.Models.Enums;
 
     public class TaskService : ITaskService
     {
@@ -18,7 +20,7 @@
             this.userService = userService;
         }
 
-        public bool CreateNewTask(string title, string dueDate, string description, string participants)
+        public bool CreateNewTask(string title, string dueDate, string description, string participants, IEnumerable<string> affectedSectos)
         {
             string[] participantsNames = participants.Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
             var task = new Task
@@ -42,6 +44,12 @@
                 });
             }
 
+            foreach (var sector in affectedSectos)
+            {
+                Enum.TryParse(sector, out SectorType sectorType);
+                task.AffectedSectors.Add(new TaskSector { Sector = sectorType, TaskId = task.Id });
+            }
+
             this.context.Update(task);
             this.context.SaveChanges();
             return true;
@@ -49,7 +57,8 @@
 
         public IQueryable<Task> GetAllTasks()
         {
-            return this.context.Tasks;
+            return this.context.Tasks
+                .Include(t => t.AffectedSectors);
         }
 
         public Task GetTaskById(string id)
@@ -57,6 +66,7 @@
             return this.context.Tasks
                 .Include(t => t.Participants)
                 .ThenInclude(tu => tu.User)
+                .Include(t => t.AffectedSectors)
                 .SingleOrDefault(t => t.Id == id);
         }
 

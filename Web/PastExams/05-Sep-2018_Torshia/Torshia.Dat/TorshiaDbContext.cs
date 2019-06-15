@@ -40,21 +40,20 @@
                 .HasMany(task => task.Participants)
                 .WithOne(tu => tu.Task)
                 .HasForeignKey(tu => tu.TaskId);
+            modelBuilder.Entity<Task>()
+                .HasMany(t => t.AffectedSectors)
+                .WithOne(s => s.Task)
+                .HasForeignKey(s => s.TaskId);
 
             modelBuilder.Entity<Report>()
                 .HasKey(report => report.Id);
 
             modelBuilder.Entity<UserTask>()
                 .HasKey(ut => new { ut.TaskId, ut.UserId });
-            //modelBuilder.Entity<UserTask>()
-            //    .HasOne(ut => ut.Task)
-            //    .WithMany(t => t.Participants)
-            //    .HasForeignKey(ut => ut.TaskId);
-            //modelBuilder.Entity<UserTask>()
-            //   .HasOne(ut => ut.User)
-            //   .WithMany(t => t.Tasks)
-            //   .HasForeignKey(ut => ut.UserId);
 
+            modelBuilder.Entity<TaskSector>()
+                .HasKey(ts => new { ts.TaskId, ts.Sector });
+            
             base.OnModelCreating(modelBuilder);
         }
     }

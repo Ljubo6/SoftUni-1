@@ -42,7 +42,9 @@
         {
             return this.context
                 .Reports
+                .Include(report => report.Task.AffectedSectors)
                 .Include(report => report.Task)
+                .Include(report => report.Reporter)
                 .Include(report => report.Task.Participants)
                 .ThenInclude(p => p.User);
         }

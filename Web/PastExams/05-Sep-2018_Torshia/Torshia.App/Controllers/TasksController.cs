@@ -30,7 +30,7 @@
         public IActionResult Create(CreteTaskInputModel inputModel)
         {
             this.taskService
-                .CreateNewTask(inputModel.Title, inputModel.DueDate, inputModel.Description, inputModel.Participants);
+                .CreateNewTask(inputModel.Title, inputModel.DueDate, inputModel.Description, inputModel.Participants, this.Request.FormData["checkbox"]);
             return this.Redirect("/");
         }
 
@@ -44,7 +44,7 @@
                 Level = task.AffectedSectors.Count,
                 DueDate = task.DueDate.ToString("dd/MM/yyyy"),
                 Participants = string.Join(", ", task.Participants.Select(p => p.User.Username)),
-                AffectedSectors = string.Join(", ", task.AffectedSectors),
+                AffectedSectors = string.Join(", ", task.AffectedSectors.Select(s => s.Sector.ToString())),
                 Description = task.Description
             };
 
