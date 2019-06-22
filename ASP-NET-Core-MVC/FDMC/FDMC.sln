@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29001.49
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FDMC.App", "FDMC.App\FDMC.App.csproj", "{56269CF6-63EE-4B2B-8946-FABEEEDBA608}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FDMC.Domain", "FDMC.Domain\FDMC.Domain.csproj", "{3806B29C-14CA-42B1-8879-7D592EC96CFB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{56269CF6-63EE-4B2B-8946-FABEEEDBA608}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56269CF6-63EE-4B2B-8946-FABEEEDBA608}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56269CF6-63EE-4B2B-8946-FABEEEDBA608}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56269CF6-63EE-4B2B-8946-FABEEEDBA608}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3806B29C-14CA-42B1-8879-7D592EC96CFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3806B29C-14CA-42B1-8879-7D592EC96CFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3806B29C-14CA-42B1-8879-7D592EC96CFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3806B29C-14CA-42B1-8879-7D592EC96CFB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BA5064FD-93C1-449B-9FEC-4DD3FC30C6B8}
+	EndGlobalSection
+EndGlobal
