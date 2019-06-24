@@ -1,14 +1,21 @@
 ﻿@model IEnumerable<FDMC.App.Models.HomeCatViewModel>
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h1>Fluffy Duffy Munchkin Cats</h1>
-<ul>
-    @foreach (var cat in Model)
-    {
-        <li><a href="/Cats/@cat.Id">@cat.Name</a></li>
-    }
+<div class="container-fluid text-center mt-3">
+    <h1>Fluffy Duffy Munchkin Cats</h1>
+</div>
+}
+<div class="container-fluid text-center mt-3">
+    <ul>
+        @foreach (var cat in Model)
+        {
+        <li><a class="text-success mt-2" href="/Cats/@cat.Id">@cat.Name</a></li>
+        }
     </ul>
-<form action="/Cats/Add">
-    <input type="submit" value="Add Cat" />
-</form>
+
+    <form action="/Cats/Add">
+        <input type="submit" class="btn btn-warning btn-lg" value="Add Cat" />
+    </form>
+</div>

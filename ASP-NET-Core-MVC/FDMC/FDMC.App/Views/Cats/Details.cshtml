@@ -1,16 +1,14 @@
-﻿@model  CatViewModel
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Details</title>
-</head>
-<body>
-    <h1>@Model.Name</h1>
+﻿@model CatViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="text-center mt-3">
+<h1>@Model.Name</h1>
+</div>
+<hr class="bg-dark w-50 hr-2" />
+<div class="w-50 mx-auto text-center mt-5">
     <img src="@Model.ImageUrl" alt="@Model.Name" width="300">
     <p><strong>Age: @Model.Age</strong></p>
     <p><strong>Beed: @Model.Breed</strong></p>
-</body>
-</html>
+</div>
