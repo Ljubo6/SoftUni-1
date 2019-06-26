@@ -21,7 +21,6 @@ namespace Eventures.App
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
@@ -30,12 +29,11 @@ namespace Eventures.App
             options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<EventuresUser, IdentityRole>()
-                .AddEntityFrameworkStores<EventuresDbContext>()
-                .AddDefaultTokenProviders();
+               .AddEntityFrameworkStores<EventuresDbContext>()
+               .AddDefaultTokenProviders();
 
             services.Configure<IdentityOptions>(options =>
             {
-                // Password settings.
                 options.Password.RequireDigit = false;
                 options.Password.RequireLowercase = false;
                 options.Password.RequireNonAlphanumeric = false;
@@ -47,21 +45,23 @@ namespace Eventures.App
             });
         }
 
-            // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-            public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {
                 using (var context = serviceScope.ServiceProvider.GetRequiredService<EventuresDbContext>())
                 {
+                    context.Database.EnsureDeleted();
                     context.Database.EnsureCreated();
 
                     if (!context.Roles.Any())
                     {
                         context.Roles.Add(new IdentityRole { Name = "Admin", NormalizedName = "ADMIN" });
                         context.Roles.Add(new IdentityRole { Name = "User", NormalizedName = "USER" });
-                        context.SaveChanges();
                     }
+
+                    context.SaveChanges();
                 }
             }
 
