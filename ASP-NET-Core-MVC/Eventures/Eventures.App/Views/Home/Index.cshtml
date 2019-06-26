@@ -1,6 +1,25 @@
-﻿<div class="jumbotron w-75 mx-auto bg-eventures mt-3">
-    <h3>Eventures - The best ticket services in the world.</h3>
-    <hr class="bg-dark" />
-    <h5 class="font-weight-bold"><a href="/Identity/Account/Login">Login</a> to start "eventing".</h5>
-    <h5 class="font-weight-bold mt-2"><a href="/Identity/Account/Register">Register</a> if you don't have an account.</h5>
-</div>
+﻿@if (this.User.IsInRole("Admin"))
+{
+    <div class="jumbotron w-75 mx-auto bg-eventures mt-3 text-center">
+        <h3>Greetings, Administrator - @this.User.Identity.Name</h3>
+        <hr class="bg-dark" />
+        <h5 class="font-weight-bold">Enjoy your work.</h5>
+    </div>
+}
+else if (this.User.IsInRole("User"))
+{
+    <div class="jumbotron w-75 mx-auto bg-eventures mt-3 text-center">
+        <h3>Welcome, @this.User.Identity.Name</h3>
+        <hr class="bg-dark" />
+        <h5 class="font-weight-bold">Eventures wishes you an exciting experience.</h5>
+    </div>
+}
+else
+{
+    <div class="jumbotron w-75 mx-auto bg-eventures mt-3">
+        <h3>Eventures - The best ticket services in the world.</h3>
+        <hr class="bg-dark" />
+        <h5 class="font-weight-bold"><a href="/Identity/Account/Login">Login</a> to start "eventing".</h5>
+        <h5 class="font-weight-bold mt-2"><a href="/Identity/Account/Register">Register</a> if you don't have an account.</h5>
+    </div>
+}

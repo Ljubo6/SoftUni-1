@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Eventures.Domain.Models;
@@ -88,7 +89,18 @@ namespace Eventures.App.Areas.Identity.Pages.Account
                     LastName = Input.LastName,
                     UCN = Input.UCN
                 };
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
+
+                if (_userManager.Users.Count() == 1)
+                {
+                    await _userManager.AddToRoleAsync(user, "Admin");
+                }
+                else
+                {
+                    await _userManager.AddToRoleAsync(user, "User");
+                }
+
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");

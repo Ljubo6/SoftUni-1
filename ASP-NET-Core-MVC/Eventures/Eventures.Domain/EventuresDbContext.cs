@@ -9,7 +9,16 @@
     {
         public EventuresDbContext(DbContextOptions<EventuresDbContext> options) : base(options) 
         {
+        }
 
+        public DbSet<Event> Events { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Event>()
+                .HasKey(e => e.Id);
+
+            base.OnModelCreating(builder);
         }
     }
 }

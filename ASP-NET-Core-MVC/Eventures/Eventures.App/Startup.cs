@@ -52,7 +52,6 @@ namespace Eventures.App
             {
                 using (var context = serviceScope.ServiceProvider.GetRequiredService<EventuresDbContext>())
                 {
-                    context.Database.EnsureDeleted();
                     context.Database.EnsureCreated();
 
                     if (!context.Roles.Any())
