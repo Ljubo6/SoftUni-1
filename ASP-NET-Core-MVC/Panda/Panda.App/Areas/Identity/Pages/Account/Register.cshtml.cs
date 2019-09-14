@@ -1,32 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using Eventures.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Panda.Domain;
 
-namespace Eventures.App.Areas.Identity.Pages.Account
+namespace Panda.App.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<EventuresUser> _signInManager;
-        private readonly UserManager<EventuresUser> _userManager;
+        private readonly SignInManager<PandaUser> _signInManager;
+        private readonly RoleManager<PandaUserRole> _roleManager;
+        private readonly UserManager<PandaUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
 
         public RegisterModel(
-            UserManager<EventuresUser> userManager,
-            SignInManager<EventuresUser> signInManager,
+            UserManager<PandaUser> userManager,
+            RoleManager<PandaUserRole> roleManager,
+            SignInManager<PandaUser> signInManager,
             ILogger<RegisterModel> logger)
         {
             _userManager = userManager;
+            _roleManager = roleManager;
             _signInManager = signInManager;
             _logger = logger;
         }
@@ -39,29 +40,15 @@ namespace Eventures.App.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
+            public string Username { get; set; }
+
+            [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
             [Required]
-            [Display(Name = "Username")]
-            [MinLength(3)]
-            public string Username { get; set; }
-
-            [Required]
-            [Display(Name = "First Name")]
-            public string FirstName { get; set; }
-
-            [Required]
-            [Display(Name = "Last Name")]
-            public string LastName { get; set; }
-
-            [Required]
-            [Display(Name = "UCN")]
-            public string UCN { get; set; }
-
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 3)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
             public string Password { get; set; }
@@ -82,14 +69,9 @@ namespace Eventures.App.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new EventuresUser
-                {
-                    UserName = Input.Username,
-                    Email = Input.Email,
-                    FirstName = Input.FirstName,
-                    LastName = Input.LastName,
-                    UCN = Input.UCN
-                };
+                var user = new PandaUser { UserName = Input.Username, Email = Input.Email };
+
+                // TODO: Make Admin
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
@@ -105,6 +87,7 @@ namespace Eventures.App.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
+
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return LocalRedirect(returnUrl);
                 }

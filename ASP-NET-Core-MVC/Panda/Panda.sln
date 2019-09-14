@@ -1,9 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.29001.49
+VisualStudioVersion = 16.0.29009.5
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Panda.App", "Panda.App\Panda.App.csproj", "{53A477AA-1439-42F3-A711-FA0BF491E24C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Panda.Data", "Panda.Data\Panda.Data.csproj", "{D654099E-E431-48AF-B655-17BFB6DC48F2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Panda.Domain", "Panda.Domain\Panda.Domain.csproj", "{8899E681-CBDE-4518-B821-A17E3FE5A12D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Panda.App", "Panda.App\Panda.App.csproj", "{FC3F802E-DE0E-4B28-906A-218F875065AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Panda.Services", "Panda.Services\Panda.Services.csproj", "{7C3AEEC1-067C-4F1E-B9D1-930B9775D477}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +17,27 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{53A477AA-1439-42F3-A711-FA0BF491E24C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{53A477AA-1439-42F3-A711-FA0BF491E24C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{53A477AA-1439-42F3-A711-FA0BF491E24C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{53A477AA-1439-42F3-A711-FA0BF491E24C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D654099E-E431-48AF-B655-17BFB6DC48F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D654099E-E431-48AF-B655-17BFB6DC48F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D654099E-E431-48AF-B655-17BFB6DC48F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D654099E-E431-48AF-B655-17BFB6DC48F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8899E681-CBDE-4518-B821-A17E3FE5A12D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8899E681-CBDE-4518-B821-A17E3FE5A12D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8899E681-CBDE-4518-B821-A17E3FE5A12D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8899E681-CBDE-4518-B821-A17E3FE5A12D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC3F802E-DE0E-4B28-906A-218F875065AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC3F802E-DE0E-4B28-906A-218F875065AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC3F802E-DE0E-4B28-906A-218F875065AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC3F802E-DE0E-4B28-906A-218F875065AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C3AEEC1-067C-4F1E-B9D1-930B9775D477}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C3AEEC1-067C-4F1E-B9D1-930B9775D477}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C3AEEC1-067C-4F1E-B9D1-930B9775D477}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C3AEEC1-067C-4F1E-B9D1-930B9775D477}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {4D278FD0-D2D7-44DF-9F69-C6B12A705431}
+		SolutionGuid = {04E2BE24-0BDC-4172-BF6A-10EAF4949D4E}
 	EndGlobalSection
 EndGlobal
